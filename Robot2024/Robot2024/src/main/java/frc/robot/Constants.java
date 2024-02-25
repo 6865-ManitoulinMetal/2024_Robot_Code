@@ -52,6 +52,8 @@ public class Constants {
     public static final double GEAR_RATIO_MKVI_L3 = 12.75; // Example gear ratio for MKvi L3 swerve module
 
     public static final double DEFAULT_DRIVE_SPEED = 0.2; // Default drive speed 0.2 unless overwritten in commands
+    public static final int TRACK_WIDTH = 0;
+    public static final int WHEELBASE = 0;
     // Operator Constants
     public static class OperatorConstants {
         public static final int kDriverControllerPort = 0;

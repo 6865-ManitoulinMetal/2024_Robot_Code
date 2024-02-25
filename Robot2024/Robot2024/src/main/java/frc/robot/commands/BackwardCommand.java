@@ -5,10 +5,11 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class BackCommand extends Command {
+public class BackwardCommand extends Command {
   private final SwerveDriveSubsystem swerveDriveSubsystem;
   private final double targetDistanceMeters;
   private double initialPosition;
@@ -17,8 +18,7 @@ public class BackCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BackwardCommand(SwerveDriveSubsystem swerveDriveSubsystem) {
-    this.swerveDriveSubsystem = swerveDriveSubsystem;
+  public BackwardCommand(SwerveDriveSubsystem swerveDriveSubsystem, double targetDistanceMeters) {
     this.swerveDriveSubsystem = swerveDriveSubsystem;
     this.targetDistanceMeters = targetDistanceMeters;
     addRequirements(swerveDriveSubsystem);

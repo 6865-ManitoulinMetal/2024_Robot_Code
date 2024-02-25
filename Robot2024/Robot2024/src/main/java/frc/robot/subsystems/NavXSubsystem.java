@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 // NavXSubsystem.java
 // Represents the NavX Subsystem for gyro sensor control.

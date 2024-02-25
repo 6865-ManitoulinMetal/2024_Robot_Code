@@ -6,10 +6,20 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.subsystems.NavXSubsystem;
+import frc.robot.subsystems.SwerveDriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
+
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -23,12 +33,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final SwerveDriveSubsystem swerveDriveSubsystem;
-  private final NavXSubsystem navXSubsystem;
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  
-  public RobotContainer() {
-    {
       private final XboxController controller = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
       private final SwerveDriveSubsystem swerveDriveSubsystem;
       private final NavXSubsystem navXSubsystem;
