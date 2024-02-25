@@ -21,14 +21,61 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+  private final SwerveDriveSubsystem swerveDriveSubsystem;
+  private final NavXSubsystem navXSubsystem;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  
   public RobotContainer() {
-    // Configure the trigger bindings
+    {
+      private final XboxController controller = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
+      private final SwerveDriveSubsystem swerveDriveSubsystem;
+      private final NavXSubsystem navXSubsystem;
+  
+      public RobotContainer() {
+          // Sample wheel positions (relative to robot center)
+          Translation2d[] wheelPositions = {
+              new Translation2d(14.75, 14.75),
+              new Translation2d(14.75, -14.75),
+              new Translation2d(-14.75, 14.75),
+              new Translation2d(-14.75, -14.75)
+          };
+  
+          SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+              wheelPositions[0], wheelPositions[1], wheelPositions[2], wheelPositions[3]
+          );
+  
+          // Sample values for measurements
+          double wheelbaseWidth = 0.5; // Sample wheelbase width (0.5 meters)
+          double wheelbaseLength = 0.5; // Sample wheelbase length (0.5 meters)
+          double rotationOffset = 0.1; // Sample rotation offset (0.1 meters)
+          int encoderCPR = 1024; // Sample encoder CPR
+          double encoderDistancePerPulse = 0.01; // Sample encoder distance per pulse (0.01 meters per pulse)
+          double gyroSensitivity = 0.1; // Sample gyro sensitivity (0.1 degrees per second per volt)
+          double maxWheelSpeed = 2.0; // Sample maximum wheel speed (2.0 meters per second)
+  
+          // Sample gear ratios for the MKvi L3 swerve module
+          Map<SwerveModule, Double> gearRatios = new HashMap<>();
+          double gearRatio = Constants.GEAR_RATIO_MKVI_L3; // Get the gear ratio for MKvi L3 swerve module
+          gearRatios.put(module1, gearRatio);
+          gearRatios.put(module2, gearRatio);
+          gearRatios.put(module3, gearRatio);
+          gearRatios.put(module4, gearRatio);
+  
+          // Initialize subsystems
+          swerveDriveSubsystem = new SwerveDriveSubsystem(
+              kinematics, modules,
+              wheelbaseWidth, wheelbaseLength,
+              rotationOffset, encoderCPR, encoderDistancePerPulse,
+              gyroSensitivity, maxWheelSpeed,
+              gearRatios
+          );
+          navXSubsystem = new NavXSubsystem();
+  
+          // Set default command for swerve drive subsystem
+          swerveDriveSubsystem.setDefaultCommand(new DriveCommand(swerveDriveSubsystem, controller));
+      }
     configureBindings();
   }
 
