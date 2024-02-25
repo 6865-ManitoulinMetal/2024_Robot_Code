@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 // NavXSubsystem.java
-// Represents the NavX subsystem for gyro sensor control.
+// Represents the NavX Subsystem for gyro sensor control.
 public class NavXSubsystem extends SubsystemBase {
     private final AHRS navX;
 
@@ -20,7 +20,10 @@ public class NavXSubsystem extends SubsystemBase {
     public Rotation2d getHeading() {
         return Rotation2d.fromDegrees(navX.getYaw());
     }
-
+    public double getAngle() {
+        // Return current angle from NavX
+        return navX.getAngle();
+    }
     // Reset the NavX sensor to zero heading
     public void reset() {
         navX.reset();

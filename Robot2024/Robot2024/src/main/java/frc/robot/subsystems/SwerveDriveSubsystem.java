@@ -63,6 +63,9 @@ public class SwerveDriveSubsystem extends SubsystemBase {
         );
 
         // Set up kinematics and odometry
+        kinematics = new SwerveDriveKinematics(
+          wheelPositions[0], wheelPositions[1], wheelPositions[2], wheelPositions[3]
+      );
         odometry = new SwerveDriveOdometry(kinematics, Rotation2d.fromDegrees(0.0));
     }
 
@@ -74,7 +77,23 @@ public class SwerveDriveSubsystem extends SubsystemBase {
         return odometry;
     }
 }
+public void updateOdometry(double currentAngle) {
+  // Update odometry with current sensor readings
+  odometry.update(
+      new Rotation2d(Math.toRadians(currentAngle)),
+      List.of(
+          swerveModules[0].getAngle(),
+          swerveModules[1].getAngle(),
+          swerveModules[2].getAngle(),
+          swerveModules[3].getAngle()
+      )
+  );
 
+  // Update SmartDashboard with odometry data
+  SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
+  SmartDashboard.putNumber("Y", odometry.getPoseMeters().getY());
+  SmartDashboard.putNumber("Heading", odometry.getPoseMeters().getRotation().getDegrees());
+}
   }
 
   /**
