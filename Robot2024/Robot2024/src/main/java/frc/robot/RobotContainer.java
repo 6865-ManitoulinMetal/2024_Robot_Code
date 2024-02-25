@@ -7,8 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final SwerveDriveSubsystem swerveDriveSubsystem;
@@ -30,7 +32,8 @@ public class RobotContainer {
       private final XboxController controller = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
       private final SwerveDriveSubsystem swerveDriveSubsystem;
       private final NavXSubsystem navXSubsystem;
-  
+      private final SendableChooser<Command> autonomousChooser;
+
       public RobotContainer() {
           // Sample wheel positions (relative to robot center)
           Translation2d[] wheelPositions = {
@@ -74,7 +77,19 @@ public class RobotContainer {
           // Set default command for swerve drive subsystem
           swerveDriveSubsystem.setDefaultCommand(new DriveCommand(swerveDriveSubsystem, controller));
       }
-    configureBindings();
+    // Initialize Xbox controller
+    controller = new XboxController(0); // Replace 0 with the appropriate port number
+
+    // Configure the button bindings
+    configureButtonBindings();
+  
+    // Create and schedule autonomous command
+    autonomousChooser = new SendableChooser<>();
+
+        // Add autonomous routines to the chooser
+        autonomousChooser.setDefaultOption("Autonomous Routine A", new AutonomousRoutineA(swerveDriveSubsystem));
+        autonomousChooser.addOption("Autonomous Routine B", new AutonomousRoutineB(swerveDriveSubsystem));
+        
   }
 
   /**
@@ -87,6 +102,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // Example: Map the A button to drive forward command
+    new JoystickButton(controller, XboxController.Button.kA.value)
+    .whenPressed(new DriveForwardCommand(swerveDriveSubsystem));
+
+// Example: Map the B button to drive backward command
+new JoystickButton(controller, XboxController.Button.kB.value)
+    .whenPressed(new DriveBackwardCommand(swerveDriveSubsystem));
+
+// Add more button bindings as needed for other commands
+
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
@@ -101,8 +126,13 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
-  }
+  public void autonomousInit() {
+    // Retrieve the selected autonomous routine from the chooser
+    Command selectedAutonomous = autonomousChooser.getSelected();
+
+    // Schedule the selected autonomous routine
+    if (selectedAutonomous != null) {
+        selectedAutonomous.schedule();
+    }
+}
 }
