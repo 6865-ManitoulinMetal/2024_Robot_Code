@@ -139,4 +139,8 @@ new JoystickButton(controller, XboxController.Button.kB.value)
         selectedAutonomous.schedule();
     }
 }
+public Command getAutonomousCommand() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
+}
 }

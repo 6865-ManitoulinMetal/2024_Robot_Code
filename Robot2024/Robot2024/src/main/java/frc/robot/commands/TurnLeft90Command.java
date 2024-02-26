@@ -5,8 +5,9 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics.SwerveDriveWheelStates;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnLeft90Command extends Command {
     private final SwerveDriveSubsystem swerveDriveSubsystem;
@@ -23,7 +24,7 @@ public class TurnLeft90Command extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SwerveDriveKinematics.WheelSpeeds wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
+    SwerveDriveWheelStates wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
       new ChassisSpeeds(0, 0, Math.toRadians(-90)) // Turn left by 90 degrees
   );
   // Set wheel speeds

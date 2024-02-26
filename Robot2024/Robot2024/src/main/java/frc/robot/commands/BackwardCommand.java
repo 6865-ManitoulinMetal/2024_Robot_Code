@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics.SwerveDriveWheelStates;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class BackwardCommand extends Command {
@@ -40,7 +41,7 @@ public class BackwardCommand extends Command {
       double remainingDistance = targetDistanceMeters - distanceDriven;
 
       // Use kinematics to calculate wheel speeds for moving backward
-      SwerveDriveKinematics.WheelSpeeds wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
+      SwerveDriveWheelStates wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
           new ChassisSpeeds(0, -remainingDistance, 0)
       );
 

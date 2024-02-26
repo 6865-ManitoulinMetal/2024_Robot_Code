@@ -5,12 +5,14 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics.SwerveDriveWheelStates;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ForwardCommand extends Command {
   private final SwerveDriveSubsystem swerveDriveSubsystem;
-  private final double targetDistanceMeters;
+  private double targetDistanceMeters = 0;
   private double initialPosition;
   /**
    * Creates a new ForwardCommand.
@@ -39,7 +41,7 @@ public class ForwardCommand extends Command {
         double remainingDistance = targetDistanceMeters - distanceDriven;
 
         // Use kinematics to calculate wheel speeds for driving forward
-        SwerveDriveKinematics.WheelSpeeds wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
+        SwerveDriveWheelStates wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
             new ChassisSpeeds(remainingDistance, 0, 0)
         );
 
