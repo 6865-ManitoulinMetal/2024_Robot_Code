@@ -5,8 +5,9 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics.SwerveDriveWheelStates;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnRight90Command extends Command {
     private final SwerveDriveSubsystem swerveDriveSubsystem;
@@ -24,7 +25,7 @@ public class TurnRight90Command extends Command {
   @Override
   public void initialize() {
     // Use kinematics to calculate wheel speeds for turning right
-    SwerveDriveKinematics.WheelSpeeds wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
+    SwerveDriveWheelStates wheelSpeeds = swerveDriveSubsystem.getKinematics().toWheelSpeeds(
     new ChassisSpeeds(0, 0, Math.toRadians(90)) // Turn right by 90 degrees
     );
 

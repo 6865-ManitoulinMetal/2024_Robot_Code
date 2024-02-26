@@ -4,30 +4,32 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.Constants;
 import frc.robot.subsystems.NavXSubsystem;
 import com.kauailabs.navx.frc.AHRS;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.controls.*;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.controls.ControlMode;
+import com.ctre.phoenix6.controls.FeedbackDevice;
+import com.ctre.phoenix6.wpiutils.*;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.util.Units;
 
 public class SwerveModule {
     private final TalonFX driveMotor;
     private final TalonFX steerMotor;
-    private final CANCoder absoluteEncoder;
+    private final CANcoder absoluteEncoder;
 
     // Encoder constants
     private static final double ENCODER_RESOLUTION = 2048; // Encoder counts per revolution
 
     // Swerve module configuration
     private static final double MAX_MODULE_SPEED = 5.0; // Maximum module speed in meters per second
-    private static final double MAX_MODULE_ROTATION_SPEED = 3 * Math.PI; // Maximum module rotation speed in radians per second
-
     // Constructor
     public SwerveModule(int driveMotorID, int steerMotorID, int absoluteEncoderID) {
         driveMotor = new TalonFX(driveMotorID);
         steerMotor = new TalonFX(steerMotorID);
-        absoluteEncoder = new CANCoder(absoluteEncoderID);
+        absoluteEncoder = new CANcoder(absoluteEncoderID);
 
         // Configure drive motor
         driveMotor.configFactoryDefault();
