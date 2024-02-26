@@ -59,7 +59,7 @@ public class Constants {
     public static final int WHEELBASE = 0;
     
     // Additional constants for robot motion control
-    public static final double WHEEL_POSITION = 14.75;  // Wheel position relative to robot center
+    public static final double WHEEL_POSITION = 12.25;  // Wheel position relative to robot center
     public static final double WHEELBASE_WIDTH = 24.5;  // Width of the wheelbase
     public static final double WHEELBASE_LENGTH = 24.5;  // Length of the wheelbase
     public static final double ROTATION_OFFSET = 0.1;  // Rotation offset
