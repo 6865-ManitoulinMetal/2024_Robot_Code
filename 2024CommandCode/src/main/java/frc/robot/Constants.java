@@ -35,7 +35,7 @@ public class Constants {
 
     // Rear Left Swerve Module Constants
     public static final int DRIVE_MOTOR_REAR_LEFT_ID = 4;
-    public static final int ROTATION_MOTOR_REAR_LEFT_ID = 5;
+    public static final int ROTATION_MOTOR_REAR_LEFT_ID = 5; 
     public static final int ENCODER_REAR_LEFT_ID = 4;
     public static final double ENCODER_REAR_LEFT_OFFSET = 0.0;
     public static final boolean ENCODER_REAR_LEFT_INVERT = false;
