@@ -15,6 +15,9 @@ package frc.robot;
 // Constants.java
 // This file contains constants used throughout the project.
 
+/**
+ * Constants class containing configuration constants for swerve modules and robot parameters.
+ */
 public class Constants {
     // Front Left Swerve Module Constants
     public static final int DRIVE_MOTOR_FRONT_LEFT_ID = 1;
@@ -54,6 +57,17 @@ public class Constants {
     public static final double DEFAULT_DRIVE_SPEED = 0.2; // Default drive speed 0.2 unless overwritten in commands
     public static final int TRACK_WIDTH = 0;
     public static final int WHEELBASE = 0;
+    
+    // Additional constants for robot motion control
+    public static final double WHEEL_POSITION = 14.75;  // Wheel position relative to robot center
+    public static final double WHEELBASE_WIDTH = 0.5;  // Width of the wheelbase
+    public static final double WHEELBASE_LENGTH = 0.5;  // Length of the wheelbase
+    public static final double ROTATION_OFFSET = 0.1;  // Rotation offset
+    public static final int ENCODER_CPR = 1024;  // Encoder Counts Per Revolution
+    public static final double ENCODER_DISTANCE_PER_PULSE = 0.01;  // Distance traveled per encoder pulse
+    public static final double GYRO_SENSITIVITY = 0.1;  // Gyroscope sensitivity
+    public static final double MAX_WHEEL_SPEED = 2.0;  // Maximum wheel speed
+
     // Operator Constants
     public static class OperatorConstants {
         public static final int kDriverControllerPort = 0;
