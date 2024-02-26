@@ -60,8 +60,8 @@ public class Constants {
     
     // Additional constants for robot motion control
     public static final double WHEEL_POSITION = 14.75;  // Wheel position relative to robot center
-    public static final double WHEELBASE_WIDTH = 0.5;  // Width of the wheelbase
-    public static final double WHEELBASE_LENGTH = 0.5;  // Length of the wheelbase
+    public static final double WHEELBASE_WIDTH = 24.5;  // Width of the wheelbase
+    public static final double WHEELBASE_LENGTH = 24.5;  // Length of the wheelbase
     public static final double ROTATION_OFFSET = 0.1;  // Rotation offset
     public static final int ENCODER_CPR = 1024;  // Encoder Counts Per Revolution
     public static final double ENCODER_DISTANCE_PER_PULSE = 0.01;  // Distance traveled per encoder pulse
