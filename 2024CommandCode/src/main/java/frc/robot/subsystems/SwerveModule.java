@@ -20,28 +20,18 @@ public class SwerveModule {
     private SwerveModuleState currentState; // Current state of the module
     private double currentPositionX = 0.0;
     private double currentPositionY = 0.0;
+    private double initialPosition;
+    private double offset;
 
     
-    public SwerveModule(int driveMotorId, int rotationMotorId, NavXSubsystem navXSubsystem, int encoderId) {
+    public SwerveModule(int driveMotorId, int rotationMotorId, NavXSubsystem navXSubsystem, int encoderId, double encoderOffset) {
         this.driveMotor = new TalonFX(driveMotorId);
         this.rotationMotor = new TalonFX(rotationMotorId);
         this.canCoder = new CANcoder(encoderId);
         this.navXSubsystem = navXSubsystem;
         this.encoderId = encoderId; // Placeholder variable to store encoder ID based on motor ID
-              
-
-        // Determine encoder ID based on motor ID
-        if (driveMotorId == Constants.DRIVE_MOTOR_FRONT_LEFT_ID) {
-            encoderId = Constants.ENCODER_FRONT_LEFT_ID;
-        } else if (driveMotorId == Constants.DRIVE_MOTOR_FRONT_RIGHT_ID) {
-            encoderId = Constants.ENCODER_FRONT_RIGHT_ID;
-        } else if (driveMotorId == Constants.DRIVE_MOTOR_REAR_LEFT_ID) {
-            encoderId = Constants.ENCODER_REAR_LEFT_ID;
-        } else if (driveMotorId == Constants.DRIVE_MOTOR_REAR_RIGHT_ID) {
-            encoderId = Constants.ENCODER_REAR_RIGHT_ID;
-        } else {
-            throw new IllegalArgumentException("Invalid drive motor ID");
-        }
+        this.offset = encoderOffset;
+        this.initialPosition = this.canCoder.getAbsolutePosition().getValue()*1024/360*6.12-this.offset;
     }
 
     public SwerveModulePosition getState() {
@@ -51,7 +41,7 @@ public class SwerveModule {
     }
 
     public void setDesiredState(SwerveModuleState state) {
-        // TODO: Implement setting desired state
+        // TODO: Implement setting desired state, add initial position to encoder value in degrees and account for the gear ratio 1024*6.12/360, including updating position
         throw new UnsupportedOperationException("Unimplemented method 'setDesiredState'");
     }
 
