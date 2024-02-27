@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.JoystickDrive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 import frc.robot.subsystems.NavXSubsystem;
@@ -24,7 +25,11 @@ public class RobotContainer {
         configureButtonBindings();
     }
 
-    private void configureButtonBindings() {
+    private void configureButtonBindings() 
+    {
+        m_swerveDriveSubsystem.setDefaultCommand(new JoystickDrive(m_swerveDriveSubsystem, 
+                                    () -> m_driverController.getLeftY(), 
+                                    () -> -m_driverController.getLeftX()));
         //m_buttonA.whenActive(new ExampleCommand(m_exampleSubsystem));
         // Add more button bindings for controlling the SwerveDriveSubsystem
         // For example:
