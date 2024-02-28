@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveDriveSubsystem;
+//import frc.robot.Constants;
 
 public class DriveForwardCommand extends Command {
     private final SwerveDriveSubsystem swerveSubsystem;
@@ -9,7 +10,7 @@ public class DriveForwardCommand extends Command {
 
     public DriveForwardCommand(SwerveDriveSubsystem swerveSubsystem, double speed) {
         this.swerveSubsystem = swerveSubsystem;
-        this.speed = speed;
+        this.speed = speed*frc.robot.Constants.MAX_WHEEL_SPEED;
         addRequirements(swerveSubsystem);
     }
 

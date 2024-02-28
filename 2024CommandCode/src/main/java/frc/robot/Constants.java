@@ -66,7 +66,7 @@ public class Constants {
     public static final int ENCODER_CPR = 1024;  // Encoder Counts Per Revolution
     public static final double ENCODER_DISTANCE_PER_PULSE = 0.01;  // Distance traveled per encoder pulse
     public static final double GYRO_SENSITIVITY = 0.1;  // Gyroscope sensitivity
-    public static final double MAX_WHEEL_SPEED = 2.0;  // Maximum wheel speed
+    public static final double MAX_WHEEL_SPEED = 0.2;  // Maximum wheel speed
 
     // Operator Constants
     public static class OperatorConstants {

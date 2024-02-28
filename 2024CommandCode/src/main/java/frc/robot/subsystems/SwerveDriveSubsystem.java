@@ -30,10 +30,10 @@ public class SwerveDriveSubsystem extends SubsystemBase {
         this.navXSubsystem = navXSubsystem;
 
         // Initialize Swerve Modules
-        frontLeftModule = new SwerveModule(Constants.DRIVE_MOTOR_FRONT_LEFT_ID, Constants.ROTATION_MOTOR_FRONT_LEFT_ID, navXSubsystem, Constants.ENCODER_FRONT_LEFT_ID);
-        frontRightModule = new SwerveModule(Constants.DRIVE_MOTOR_FRONT_RIGHT_ID, Constants.ROTATION_MOTOR_FRONT_RIGHT_ID, navXSubsystem, Constants.ENCODER_FRONT_RIGHT_ID);
-        rearLeftModule = new SwerveModule(Constants.DRIVE_MOTOR_REAR_LEFT_ID, Constants.ROTATION_MOTOR_REAR_LEFT_ID, navXSubsystem, Constants.ENCODER_REAR_LEFT_ID);
-        rearRightModule = new SwerveModule(Constants.DRIVE_MOTOR_REAR_RIGHT_ID, Constants.ROTATION_MOTOR_REAR_RIGHT_ID, navXSubsystem, Constants.ENCODER_REAR_RIGHT_ID);
+        frontLeftModule = new SwerveModule(Constants.DRIVE_MOTOR_FRONT_LEFT_ID, Constants.ROTATION_MOTOR_FRONT_LEFT_ID, navXSubsystem, Constants.ENCODER_FRONT_LEFT_ID,0);
+        frontRightModule = new SwerveModule(Constants.DRIVE_MOTOR_FRONT_RIGHT_ID, Constants.ROTATION_MOTOR_FRONT_RIGHT_ID, navXSubsystem, Constants.ENCODER_FRONT_RIGHT_ID,0);
+        rearLeftModule = new SwerveModule(Constants.DRIVE_MOTOR_REAR_LEFT_ID, Constants.ROTATION_MOTOR_REAR_LEFT_ID, navXSubsystem, Constants.ENCODER_REAR_LEFT_ID,0);
+        rearRightModule = new SwerveModule(Constants.DRIVE_MOTOR_REAR_RIGHT_ID, Constants.ROTATION_MOTOR_REAR_RIGHT_ID, navXSubsystem, Constants.ENCODER_REAR_RIGHT_ID, 0);
 
         // Define the wheel positions relative to the center of the robot
         Translation2d[] wheelPositions = {

@@ -4,7 +4,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
     public AutonomousRoutineA (SwerveDriveSubsystem swerveDriveSubsystem) {
         // Create and add commands for autonomous routine
         addCommands(
-            new DriveForwardCommandForwardCommand(swerveDriveSubsystem, 5.0), // Drive forward for 5 meters
+            new DriveForwardCommand(swerveDriveSubsystem, 5.0), // Drive forward for 5 meters
             new Turn180Command(swerveDriveSubsystem) // Turn left 180 deg
         );
     }
