@@ -16,11 +16,12 @@ public class PnuematicsSubsystem extends SubsystemBase
 
     public PnuematicsSubsystem(int pcmId, int solenoidChannel0, int solenoidChannel1) 
     {
+        // Create double solenoid
         this.doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
     }
    
    
-    // Method to raise both pneumatic systems
+    // Method to raise solenoid
     public void raise() 
     {
         doubleSolenoid1.set(DoubleSolenoid.Value.kForward);
@@ -29,7 +30,7 @@ public class PnuematicsSubsystem extends SubsystemBase
    
    
    
-    // Method to lower pneumatics and 
+    // Method to lower solenoid
     public void lower()
     {
         doubleSolenoid1.set(DoubleSolenoid.Value.kReverse);
