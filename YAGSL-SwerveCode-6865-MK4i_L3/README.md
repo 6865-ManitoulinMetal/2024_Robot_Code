@@ -1,4 +1,5 @@
-# Yet Another Generic Swerve Library (YAGSL) Example project
+Team 6865 Swerve Code using YAGSL and BroncBotz's example project
+# Yet Another Generic Swerve Library (YAGSL) Overview (DO NOT REMOVE PLEASE)
 
 YAGSL is intended to be an easy implementation of a generic swerve drive that should work for most
 square swerve drives. The project is documented
