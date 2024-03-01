@@ -1,13 +1,8 @@
 package frc.robot.subsystems;
 
 
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.MechanismConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
@@ -15,11 +10,9 @@ public class IntakeSubsystem extends SubsystemBase
 {
     public TalonSRX intakeSrx;
 
-    
-
     public IntakeSubsystem(int IntakeID) 
     {
-        // Create double solenoid
+        // Creates intake motor
         intakeSrx = new TalonSRX(IntakeID);
     }
    
@@ -27,7 +20,7 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to run intake inwards
     public void intakeIn() 
     {
-        intakeSrx.set(TalonSRXControlMode.Current, 0.5);
+        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.intakeSpeed);
     }
    
    
@@ -36,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to reverse intake
     public void intakeOut()
     {
-        intakeSrx.set(TalonSRXControlMode.Current, -0.5);
+        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.intakeReverseSpeed);
     }
    
 

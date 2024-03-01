@@ -39,6 +39,14 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
+  public static final class MechanismConstants
+  { 
+    // Intake ID and speeds
+    public static final int IntakeID = 10;
+    public static final double intakeSpeed = 0.5;
+    public static final double intakeReverseSpeed = -0.5;
+  }
+
   public static class OperatorConstants
   {
 
