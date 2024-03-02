@@ -20,8 +20,8 @@ package frc.robot;
  */
 public class Constants {
     // Front Left Swerve Module Constants
-    public static final int DRIVE_MOTOR_FRONT_LEFT_ID = 1;
-    public static final int ROTATION_MOTOR_FRONT_LEFT_ID = 0;
+    public static final int DRIVE_MOTOR_FRONT_LEFT_ID = 0;
+    public static final int ROTATION_MOTOR_FRONT_LEFT_ID = 1;
     public static final int ENCODER_FRONT_LEFT_ID = 1;
     public static final double ENCODER_FRONT_LEFT_OFFSET = 0.0;
     public static final boolean ENCODER_FRONT_LEFT_INVERT = false;
@@ -67,9 +67,17 @@ public class Constants {
     public static final double ENCODER_DISTANCE_PER_PULSE = 0.01;  // Distance traveled per encoder pulse
     public static final double GYRO_SENSITIVITY = 0.1;  // Gyroscope sensitivity
     public static final double MAX_WHEEL_SPEED = 0.2;  // Maximum wheel speed
+    public static final String Swerve = null;
 
     // Operator Constants
     public static class OperatorConstants {
         public static final int kDriverControllerPort = 0;
     }
+    // Swerve constants
+    public static class Swerve {
+        public static final double driveKS = 0.0; // Placeholder value, replace with your actual value
+        public static final double driveKV = 0.0; // Placeholder value, replace with your actual value
+        public static final double driveKA = 0.0; // Placeholder value, replace with your actual value
+    // Define other swerve constants here
+}
 }
