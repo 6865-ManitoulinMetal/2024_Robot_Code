@@ -11,6 +11,7 @@ public class IntakeSubsystem extends SubsystemBase
 {
     public TalonSRX intakeSrx1;
     public TalonSRX intakeSrx2;
+    public Object intakeSubsystem;
 
     public IntakeSubsystem(int ID1, int ID2) 
     {
@@ -42,5 +43,11 @@ public class IntakeSubsystem extends SubsystemBase
     public void periodic()
     { 
         
+    }
+
+
+    public Object set(TalonSRXControlMode current, double intakeSpeed) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'set'");
     }    
 }

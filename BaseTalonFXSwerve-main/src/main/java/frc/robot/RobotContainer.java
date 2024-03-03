@@ -83,18 +83,29 @@ public class RobotContainer {
  // Bind  button to run the command when pressed
 
  
-    driverXbox.a().whileTrue (ParallelCommandGroup (
-                        intakeSrx1.intakeSubsystem, MechanismConstants.Intake_Speed),
-                        intakeSrx2.intakeSubsystem, MechanismConstants.Intake_Speed);
+    /*driverXbox.a().whileTrue (ParallelCommandGroup(
+                        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed),
+                        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed),
+                        driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly())
+    )) 
+   driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(),shooter.shooterSubsystem()));
     
-    driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(),shooter.shooterSubsystem()));
-        
 
     JoystickButton raiseButton = new JoystickButton(driver, XboxController.Button.kX.value);
     raiseButton.whenPressed (raise().PneumaticsSubsystem);
 
     JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
-    lowerButton.whenPressed(lower().PneumaticsSubsystem);
+    lowerButton.whenPressed(lower().PneumaticsSubsystem);*/
+    }
+
+    private Object lower() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'lower'");
+    }
+
+    private Object raise() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'raise'");
     }
 
     /**
