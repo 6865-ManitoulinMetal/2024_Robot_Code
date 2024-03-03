@@ -11,14 +11,13 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class PnuematicsSubsystem extends SubsystemBase 
 {
     public DoubleSolenoid doubleSolenoid1;
-    public DoubleSolenoid doubleSolenoid2;
+
 
     
 
-    public PnuematicsSubsystem(int pcmId, int solenoidChannel0, int solenoidChannel1, int solenoidChannel2, int solenoidChannel3) 
+    public PnuematicsSubsystem(int pcmId, int solenoidChannel0, int solenoidChannel1) 
     {
         this.doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
-        this.doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2, 3);
     }
    
    
@@ -26,7 +25,6 @@ public class PnuematicsSubsystem extends SubsystemBase
     public void raise() 
     {
         doubleSolenoid1.set(DoubleSolenoid.Value.kForward);
-        doubleSolenoid2.set(DoubleSolenoid.Value.kForward);
     }
    
    
@@ -36,23 +34,20 @@ public class PnuematicsSubsystem extends SubsystemBase
     public void lower()
     {
         doubleSolenoid1.set(DoubleSolenoid.Value.kReverse);
-        doubleSolenoid2.set(DoubleSolenoid.Value.kReverse);
     }
    
    
     // Method to check if both pneumatic systems are raised
     public boolean areRaised() 
     {
-        return doubleSolenoid1.get() == DoubleSolenoid.Value.kForward &&
-               doubleSolenoid2.get() == DoubleSolenoid.Value.kForward;
+        return doubleSolenoid1.get() == DoubleSolenoid.Value.kForward;
     }
    
    
     // Method to check if both pneumatic systems are lowered
     public boolean areLowered() 
     {
-        return doubleSolenoid1.get() == DoubleSolenoid.Value.kReverse &&
-               doubleSolenoid2.get() == DoubleSolenoid.Value.kReverse;
+        return doubleSolenoid1.get() == DoubleSolenoid.Value.kReverse; 
     }
    
    

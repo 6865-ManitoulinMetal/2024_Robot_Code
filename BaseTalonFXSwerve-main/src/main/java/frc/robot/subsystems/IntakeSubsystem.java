@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
+
 public class IntakeSubsystem extends SubsystemBase 
 {
     public TalonSRX intakeSrx1;

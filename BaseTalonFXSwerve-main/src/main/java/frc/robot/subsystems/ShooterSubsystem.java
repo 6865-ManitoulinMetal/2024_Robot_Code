@@ -2,14 +2,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.MechanismConstants;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 public class ShooterSubsystem extends SubsystemBase 
 {
-    public TalonFX shooter;
+    public static TalonFX shooter;
     public ShooterSubsystem(int ID) 
     {
         // Creates intake motor
@@ -28,5 +26,10 @@ public class ShooterSubsystem extends SubsystemBase
     public void periodic()
     { 
         
+    }
+
+    public Command shooterSubsystem() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'shooterSubsystem'");
     }    
 }
