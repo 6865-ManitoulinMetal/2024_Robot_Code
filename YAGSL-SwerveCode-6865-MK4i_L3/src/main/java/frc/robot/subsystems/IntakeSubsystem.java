@@ -10,17 +10,17 @@ public class IntakeSubsystem extends SubsystemBase
 {
     public TalonSRX intakeSrx;
 
-    public IntakeSubsystem(int IntakeID) 
+    public IntakeSubsystem(int ID) 
     {
         // Creates intake motor
-        intakeSrx = new TalonSRX(IntakeID);
+        intakeSrx = new TalonSRX(ID);
     }
    
    
     // Method to run intake inwards
     public void intakeIn() 
     {
-        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.intakeSpeed);
+        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
     }
    
    
@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to reverse intake
     public void intakeOut()
     {
-        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.intakeReverseSpeed);
+        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
     }
    
 

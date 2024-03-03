@@ -8,6 +8,7 @@ import com.pathplanner.lib.util.PIDConstants;
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.PubSub;
 import swervelib.math.Matter;
 
 /**
@@ -42,11 +43,16 @@ public final class Constants
   public static final class MechanismConstants
   { 
     // Intake ID and speeds
-    public static final int IntakeID = 10;
-    public static final double intakeSpeed = 0.5;
-    public static final double intakeReverseSpeed = -0.5;
-  }
+    public static final int Intake_ID = 10;
+    public static final double Intake_Speed = 0.5;
+    public static final double Intake_Reverse_Speed = -0.5;
 
+    // Holster IDs and speeds
+    public static final int Holster_Motor_ID = 11;
+    public static final double Holster_Intake_Speed = 0.7;
+    public static final double Holster_Forwards_Speed = 0.9;
+    public static final double Holster_Backwards_Speed = -0.4;
+  }
   public static class OperatorConstants
   {
 

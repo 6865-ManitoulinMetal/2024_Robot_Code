@@ -8,10 +8,10 @@ import java.io.File;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.HolsterSubsystem;
-import frc.robot.subsystems.ToggleHolsterCommand;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -70,21 +70,6 @@ public class RobotContainer
 
 
 
-public class RobotContainer {
-    private final HolsterSubsystem holsterSubsystem;
-    private final XboxController xboxController;
-
-    public RobotContainer() {
-        xboxController = new XboxController(0); // Change the port number as needed
-        holsterSubsystem = new HolsterSubsystem(1); // Change the CAN ID as needed
-
-        configureButtonBindings();
-    }
-
-    private void configureButtonBindings() {
-        new ToggleHolsterCommand(holsterSubsystem, xboxController).schedule(); // Automatically start toggling holster
-    }
-}
 
   }
 
