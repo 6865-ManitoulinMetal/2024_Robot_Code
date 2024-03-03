@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants.MechanismConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.T;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 public class ShooterSubsystem extends SubsystemBase 

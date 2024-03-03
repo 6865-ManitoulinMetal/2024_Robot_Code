@@ -43,7 +43,8 @@ public final class Constants
   public static final class MechanismConstants
   { 
     // Intake ID and speeds
-    public static final int Intake_ID = 10;
+    public static final int Intake_ID_1 = 10;
+    public static final int Intake_ID_2 = 9;
     public static final double Intake_Speed = 0.5;
     public static final double Intake_Reverse_Speed = -0.5;
 

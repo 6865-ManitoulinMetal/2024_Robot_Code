@@ -8,19 +8,22 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 public class IntakeSubsystem extends SubsystemBase 
 {
-    public TalonSRX intakeSrx;
+    public TalonSRX intakeSrx1;
+    public TalonSRX intakeSrx2;
 
-    public IntakeSubsystem(int ID) 
+    public IntakeSubsystem(int ID1, int ID2) 
     {
         // Creates intake motor
-        intakeSrx = new TalonSRX(ID);
+        intakeSrx1 = new TalonSRX(ID1);
+        intakeSrx2 = new TalonSRX(ID2);
     }
    
    
     // Method to run intake inwards
     public void intakeIn() 
     {
-        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
+        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
+        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
     }
    
    
@@ -29,7 +32,8 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to reverse intake
     public void intakeOut()
     {
-        intakeSrx.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
+        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
+        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
     }
    
 
