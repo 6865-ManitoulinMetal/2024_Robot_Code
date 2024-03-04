@@ -92,7 +92,7 @@ public class RobotContainer {
         holster.holsterStop(),
         intake.stopIntake()
         ));
-   driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(),shooter.shooterSubsystem()));
+   //driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(),shooter.shooterSubsystem()));
     
 
     driverXbox.x().onFalse(pnuematics.flipHolster());

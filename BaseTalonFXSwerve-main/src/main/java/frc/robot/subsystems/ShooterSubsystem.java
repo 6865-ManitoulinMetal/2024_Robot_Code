@@ -26,9 +26,4 @@ public class ShooterSubsystem extends SubsystemBase
     { 
         
     }
-
-    public Command shooterSubsystem() {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'shooterSubsystem'");
-    }    
 }
