@@ -38,8 +38,8 @@ public class RobotContainer {
     
   // The robot's subsystems and commands are defined here...
   private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
-  private final HolsterSubsystem holster = new HolsterSubsystem();
-  private final ShooterSubsystem shooter = new ShooterSubsystem(12);  
+  private final HolsterSubsystem holster = new HolsterSubsystem(10);
+  private final ShooterSubsystem shooter = new ShooterSubsystem(11);  
   private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
  
 
@@ -84,8 +84,8 @@ public class RobotContainer {
 
  
     driverXbox.a().whileTrue(new ParallelCommandGroup(
-                        intake.noteIntake().repeatedly(),
-                        holster.holsterIntake().repeatedly()
+                        intake.noteIntake(),
+                        holster.holsterIntake()
                         )
                     );
     driverXbox.a().onFalse(new SequentialCommandGroup(

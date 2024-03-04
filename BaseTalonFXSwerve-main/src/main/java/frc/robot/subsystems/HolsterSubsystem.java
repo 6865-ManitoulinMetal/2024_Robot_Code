@@ -12,48 +12,35 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 public class HolsterSubsystem extends SubsystemBase 
 
 {
-    public TalonSRX holsterSrx3;
-    public void holsterSrx3 (int ID3) 
-   
-    {
-        // Creates holster motor
-        holsterSrx3 = new TalonSRX(ID3);
-    }
-   
+    public TalonSRX holsterSRX;   
    
     // Method to run Holster for Intake
-    public void Holster() 
+    public HolsterSubsystem(int ID) 
     {
-        HolsterSubsystem.set(ControlMode.PercentOutput, MechanismConstants.Holster_Intake_Speed);
+        holsterSRX = new TalonSRX(ID);
     }
-   
-    private static void set(ControlMode percentoutput, double holsterIntakeSpeed) {
-        // Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
-    }
-
 
     // Method to reverse Holster
     public void Reverse()
     {
-        holsterSrx3.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Backwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Backwards_Speed);
     }
 
     public void Shoot()
     {
-        holsterSrx3.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Forwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Forwards_Speed);
     }
 
     public void Stop()
     {
-        holsterSrx3.set(TalonSRXControlMode.Current, 0);
+        holsterSRX.set(TalonSRXControlMode.Current, 0);
     }
    public Command holsterIntake() 
     {
         return runOnce(
             () -> 
             {
-                Holster();
+                Shoot();
             }
             );
     }
