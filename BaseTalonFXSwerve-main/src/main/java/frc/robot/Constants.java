@@ -18,12 +18,12 @@ public final class Constants {
     public static final class Swerve {
         //public static final int pigeonID = 1;
 
-        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
+        public static final COTSTalonFXSwerveConstants chosenModule =  //Tuned to specific robot
         COTSTalonFXSwerveConstants.SDS.MK4i.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios.L3);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(24); //TODO: This must be tuned to specific robot
-        public static final double wheelBase = Units.inchesToMeters(24); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = Units.inchesToMeters(24); //Tuned to specific robot
+        public static final double wheelBase = Units.inchesToMeters(24); //Tuned to specific robot
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
@@ -89,7 +89,7 @@ public final class Constants {
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
-        public static final class Mod0 { //tuned to specific robot
+        public static final class Mod0 { //Tuned to specific robot
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 0;
             public static final int canCoderID = 1;

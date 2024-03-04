@@ -28,7 +28,7 @@ public class HolsterSubsystem extends SubsystemBase
     }
    
     private static void set(ControlMode percentoutput, double holsterIntakeSpeed) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'set'");
     }
 
