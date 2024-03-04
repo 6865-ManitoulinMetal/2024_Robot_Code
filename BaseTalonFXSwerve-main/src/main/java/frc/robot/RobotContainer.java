@@ -37,10 +37,10 @@ public class RobotContainer {
 
     
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem intakeSrx1 = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
-  private final IntakeSubsystem intakeSrx2 = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
+  private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
   private final HolsterSubsystem holster = new HolsterSubsystem();
-  private final ShooterSubsystem shooter = new ShooterSubsystem(12);     
+  private final ShooterSubsystem shooter = new ShooterSubsystem(12);  
+  private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
  
 
     /* Driver Buttons */
@@ -83,29 +83,22 @@ public class RobotContainer {
  // Bind  button to run the command when pressed
 
  
-    /*driverXbox.a().whileTrue (ParallelCommandGroup(
-                        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed),
-                        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed),
-                        driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly())
-    )) 
+    driverXbox.a().whileTrue(new ParallelCommandGroup(
+                        intake.noteIntake().repeatedly(),
+                        holster.holsterIntake().repeatedly()
+                        )
+                    );
+    driverXbox.a().onFalse(new SequentialCommandGroup(
+        holster.holsterStop(),
+        intake.stopIntake()
+        ));
    driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(),shooter.shooterSubsystem()));
     
 
-    JoystickButton raiseButton = new JoystickButton(driver, XboxController.Button.kX.value);
-    raiseButton.whenPressed (raise().PneumaticsSubsystem);
+    driverXbox.x().onFalse(pnuematics.flipHolster());
 
-    JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
-    lowerButton.whenPressed(lower().PneumaticsSubsystem);*/
-    }
-
-    private Object lower() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lower'");
-    }
-
-    private Object raise() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'raise'");
+//    JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
+//    lowerButton.whenPressed(lower().PneumaticsSubsystem);
     }
 
     /**

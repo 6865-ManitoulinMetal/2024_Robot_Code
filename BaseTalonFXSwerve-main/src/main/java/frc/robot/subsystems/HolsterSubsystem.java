@@ -48,8 +48,7 @@ public class HolsterSubsystem extends SubsystemBase
     {
         holsterSrx3.set(TalonSRXControlMode.Current, 0);
     }
-   
-    public Command holsterIntake() 
+   public Command holsterIntake() 
     {
         return runOnce(
             () -> 
@@ -58,6 +57,7 @@ public class HolsterSubsystem extends SubsystemBase
             }
             );
     }
+    
 
     public Command holsterStop() 
     {

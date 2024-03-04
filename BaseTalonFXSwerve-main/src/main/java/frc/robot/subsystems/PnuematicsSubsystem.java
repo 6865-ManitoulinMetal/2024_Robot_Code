@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -27,8 +28,15 @@ public class PnuematicsSubsystem extends SubsystemBase
         doubleSolenoid1.set(DoubleSolenoid.Value.kForward);
     }
    
-   
-   
+     public Command raiseHolster() 
+    {
+        return runOnce(
+            () -> 
+            {
+                raise();
+            }
+            );
+    }
    
     // Method to lower both pneumatic systems
     public void lower()
@@ -36,6 +44,25 @@ public class PnuematicsSubsystem extends SubsystemBase
         doubleSolenoid1.set(DoubleSolenoid.Value.kReverse);
     }
    
+    public Command lowerHolster() 
+    {
+        return runOnce(
+            () -> 
+            {
+                lower();
+            }
+            );
+    }
+
+    public Command flipHolster() 
+    {
+        return runOnce(
+            () -> 
+            {
+                toggle();
+            }
+            );
+    }
    
     // Method to check if both pneumatic systems are raised
     public boolean areRaised() 
