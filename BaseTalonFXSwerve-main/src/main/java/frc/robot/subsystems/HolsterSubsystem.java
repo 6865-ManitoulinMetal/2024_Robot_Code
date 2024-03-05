@@ -28,7 +28,11 @@ public class HolsterSubsystem extends SubsystemBase
 
     public void Shoot()
     {
-        holsterSRX.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Forwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Forwards_Speed);
+    }
+
+    public void Intake(){
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Intake_Speed);
     }
 
     public void Stop()
@@ -40,11 +44,19 @@ public class HolsterSubsystem extends SubsystemBase
         return runOnce(
             () -> 
             {
-                Shoot();
+                Intake();;
             }
             );
     }
-    
+     public Command holsterShoot() 
+    {
+        return runOnce(
+            () -> 
+            {
+                Shoot();;
+            }
+            );
+    }
 
     public Command holsterStop() 
     {

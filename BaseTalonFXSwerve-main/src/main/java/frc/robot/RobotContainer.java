@@ -92,11 +92,12 @@ public class RobotContainer {
         holster.holsterStop(),
         intake.stopIntake()
         ));
-   driverXbox.b().whileTrue(new SequentialCommandGroup(holster.holsterIntake(), shooter.shoot()));
+    driverXbox.b().whileTrue(shooter.shoot());
+    driverXbox.b().onFalse(shooter.shooterStop());
     
 
     driverXbox.x().onFalse(pnuematics.flipHolster());
-
+    driverXbox.y().onTrue(new IntakeCommand(intake, holster));
 //JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
     }
