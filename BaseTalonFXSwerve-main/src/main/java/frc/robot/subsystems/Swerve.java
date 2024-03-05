@@ -19,8 +19,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.kauailabs.navx.frc.AHRS.SerialDataType;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SPI;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
@@ -28,8 +27,8 @@ public class Swerve extends SubsystemBase {
     public AHRS gyro;
 
     public Swerve() {
-        gyro = new AHRS(SerialPort.Port.kMXP);
-        //gyro.getConfigurator().apply(new Pigeon2Configuration());
+        gyro = new AHRS(SPI.Port.kMXP);
+        //gyro.getConfigurator().apply(new Pigeo2Configuration());
         gyro.reset();
 
         mSwerveMods = new SwerveModule[] {
