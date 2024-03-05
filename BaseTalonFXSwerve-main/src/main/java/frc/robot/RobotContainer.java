@@ -84,7 +84,7 @@ public class RobotContainer {
 
  
     driverXbox.a().whileTrue(new ParallelCommandGroup(
-                        intake.noteIntake(),
+                        //intake.noteIntake(),
                         holster.holsterIntake()
                         )
                     );
