@@ -83,23 +83,16 @@ public class RobotContainer {
  // Bind  button to run the command when pressed
 
  
-    driverXbox.a().whileTrue(new ParallelCommandGroup(
-                        //intake.noteIntake(),
-                        holster.holsterIntake()
-                        )
-                    );
-    driverXbox.a().onFalse(new SequentialCommandGroup(
-        holster.holsterStop(),
-        intake.stopIntake()
-        ));
-    driverXbox.b().whileTrue(shooter.shoot());
-    driverXbox.b().onFalse(shooter.shooterStop());
-    
+    driverXbox.a().whileTrue(new IntakeCommand(intake, holster));
+    driverXbox.x().whileTrue(new ShootCommand(holster, shooter, 40));
+    driverXbox.y().whileTrue(new ParallelCommandGroup(
+                                new ShootCommand(holster, shooter, 40),
+                                intake.noteIntake()));
 
-    driverXbox.x().onFalse(pnuematics.flipHolster());
-    driverXbox.y().onTrue(new IntakeCommand(intake, holster));
+   // driverXbox.x().onFalse(pnuematics.flipHolster());
 //JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
+
     }
 
     /**

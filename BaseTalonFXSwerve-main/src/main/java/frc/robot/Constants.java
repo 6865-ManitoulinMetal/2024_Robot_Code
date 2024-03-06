@@ -148,14 +148,15 @@ public final class Constants {
     public static final class MechanismConstants
   { 
     // Intake ID and speeds
-    public static final int Intake_ID_1 = 10;
+    public static final int Intake_ID_1 = 8;
     public static final int Intake_ID_2 = 9;
-    public static final double Intake_Speed = 0.5;
-    public static final double Intake_Reverse_Speed = -0.5;
+    public static final double Intake_Speed_1 = 1;
+    public static final double Intake_Speed_2 = 1;
+    public static final double Intake_Reverse_Speed = -1;
 
     // Holster IDs and speeds
     public static final int Holster_Motor_ID = 10;
-    public static final double Holster_Intake_Speed = 0.7;
+    public static final double Holster_Intake_Speed = -0.7;
     public static final double Holster_Forwards_Speed = -1;
     public static final double Holster_Backwards_Speed = 0.7;
  

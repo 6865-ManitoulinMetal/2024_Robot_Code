@@ -37,7 +37,7 @@ public class HolsterSubsystem extends SubsystemBase
 
     public void Stop()
     {
-        holsterSRX.set(TalonSRXControlMode.Current, 0);
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, 0);
     }
    public Command holsterIntake() 
     {

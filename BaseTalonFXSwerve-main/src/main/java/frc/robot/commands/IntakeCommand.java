@@ -12,7 +12,8 @@ public class IntakeCommand extends Command {
     
     private IntakeSubsystem intakeSubsystem;
     private HolsterSubsystem holsterSubsystem;
-    public IntakeCommand(IntakeSubsystem intakeSubsystem, HolsterSubsystem holsterSubsystem) {
+    public IntakeCommand(IntakeSubsystem intakeSubsystem, HolsterSubsystem holsterSubsystem) 
+    {
         this.holsterSubsystem = holsterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(holsterSubsystem,intakeSubsystem);
@@ -20,21 +21,19 @@ public class IntakeCommand extends Command {
 
     @Override
     public void initialize() {
-    intakeSubsystem.noteIntake();
-    holsterSubsystem.holsterIntake();
-    
-
+        this.intakeSubsystem.intakeIn();
+        this.holsterSubsystem.Intake();
     }
 
-public boolean isFinished(){
-new WaitCommand(2.0);
-return true;
-}
+    public boolean isFinished()
+    {
+        return false;
+    }
 
 
-    public void end(){
-
-holsterSubsystem.holsterStop();
-intakeSubsystem.stopIntake();
+    public void end(boolean interrupted)
+    {
+        this.holsterSubsystem.Stop();
+        this.intakeSubsystem.Stop();
     }
 }

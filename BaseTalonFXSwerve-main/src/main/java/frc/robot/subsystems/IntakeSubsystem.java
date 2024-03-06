@@ -24,8 +24,8 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to run intake inwards
     public void intakeIn() 
     {
-        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
-        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Speed);
+        intakeSrx1.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Speed_1);
+        intakeSrx2.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Speed_2);
     }
    
    
@@ -34,15 +34,15 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to reverse intake
     public void intakeOut()
     {
-        intakeSrx1.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
-        intakeSrx2.set(TalonSRXControlMode.Current, MechanismConstants.Intake_Reverse_Speed);
+        intakeSrx1.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Reverse_Speed);
+        intakeSrx2.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Reverse_Speed);
     }
 
     // Method to stop intake
-    public void stop()
+    public void Stop()
     {
-        intakeSrx1.set(TalonSRXControlMode.Current, 0);
-        intakeSrx2.set(TalonSRXControlMode.Current, 0);
+        intakeSrx1.set(TalonSRXControlMode.PercentOutput, 0);
+        intakeSrx2.set(TalonSRXControlMode.PercentOutput, 0);
     }
 
     public Command noteIntake() 
@@ -60,7 +60,7 @@ public class IntakeSubsystem extends SubsystemBase
         return runOnce(
             () -> 
             {
-                stop();
+                Stop();
             }
             );
     }
