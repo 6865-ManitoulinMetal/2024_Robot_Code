@@ -54,7 +54,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(23.0);
+  public        double      maximumSpeed = Units.feetToMeters(17.1);
 
   /*
   private SlewRateLimiter xSlewRateLimiter = new SlewRateLimiter(0.001);
@@ -72,12 +72,18 @@ public class SwerveSubsystem extends SubsystemBase
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double angleConversionFactor = 0.02746582031;
+
+    //Per SDS, mk4i steering ratio is 160/7:1
+    double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(150.0/7.0, 1);
     // Motor conversion factor is (PI * WHEEL DIAMETER IN METERS) / (GEAR RATIO * ENCODER RESOLUTION).
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.12);
+
+    //Per SDS, mk4i L3 drive ratio is 6.12:1
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.12, 1);
+
+
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
@@ -94,22 +100,10 @@ public class SwerveSubsystem extends SubsystemBase
     {
       throw new RuntimeException(e);
     }
+    
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
     swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
-    //setupPathPlanner();
-    swerveDrive.setMotorIdleMode(true);
-
-    /*
-    swerveDrive.swerveController.addSlewRateLimiters(
-      xSlewRateLimiter,
-      ySlewRateLimiter,
-      wSlewRateLimiter
-    );
-    */
-
-    //swerveDrive.replaceSwerveModuleFeedforward(DrivebaseConstants.BACK_LEFT_FEEDFORWARD);
-
-
+    setupPathPlanner();
   }
 
   /**
@@ -123,22 +117,11 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
   }
 
-  /* 
-  public static SwerveSubsystem getInstance() {
-    if (INSTANCE == null)
-    {
-      INSTANCE = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/neo"));
-    }
-    return INSTANCE;
-  }
-  */
-
-
   /**
    * Setup AutoBuilder for PathPlanner.
    */
-  //public void setupPathPlanner()
-/*   {
+  public void setupPathPlanner()
+  {
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -278,7 +261,7 @@ public class SwerveSubsystem extends SubsystemBase
         SwerveDriveTest.setDriveSysIdRoutine(
             new Config(),
             this, swerveDrive, 12),
-        3.0, 20.0, 20.0);
+        3.0, 5.0, 3.0);
   }
 
   /**
@@ -314,30 +297,6 @@ public class SwerveSubsystem extends SubsystemBase
                         false);
     });
   }
-
-  /**
-   * Command to drive the robot using translative values and heading as angular velocity.
-   * Adds deadzone for inputs
-   *
-   * @param translationX     Translation in the X direction. Cubed for smoother controls.
-   * @param translationY     Translation in the Y direction. Cubed for smoother controls.
-   * @param angularRotationX Angular velocity of the robot to set. Cubed for smoother controls.
-   * @return Drive command.
-   */
-  public Command teleopDriveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier angularRotationX)
-  {
-    return run(() -> {
-      double xSpeed = Math.pow(translationX.getAsDouble(), 3) * swerveDrive.getMaximumVelocity();
-      double ySpeed = Math.pow(translationY.getAsDouble(), 3) * swerveDrive.getMaximumVelocity();
-      // Make the robot move
-      swerveDrive.drive(new Translation2d(xSpeed,
-                                          ySpeed),
-                        Math.pow(angularRotationX.getAsDouble(), 3) * swerveDrive.getMaximumAngularVelocity(),
-                        true,
-                        false);
-    });
-  }
-
 
   /**
    * The primary method for controlling the drivebase.  Takes a {@link Translation2d} and a rotation rate, and
@@ -579,6 +538,7 @@ public class SwerveSubsystem extends SubsystemBase
   {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
+}
 
   public double[] getEncoderValues() {
     double values[] = {0, 0, 0, 0};
