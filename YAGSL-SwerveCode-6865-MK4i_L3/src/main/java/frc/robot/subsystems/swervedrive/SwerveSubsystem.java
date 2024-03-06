@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.Constants.AutonConstants;
+
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import org.photonvision.PhotonCamera;
@@ -538,15 +540,4 @@ public class SwerveSubsystem extends SubsystemBase
   {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
-}
-
-  public double[] getEncoderValues() {
-    double values[] = {0, 0, 0, 0};
-    for (int i=0; i<3; ++i) {
-      values[i] = swerveDrive.getModules()[i].getAbsolutePosition();
-    }
-
-    return values;
-  }
-
 }

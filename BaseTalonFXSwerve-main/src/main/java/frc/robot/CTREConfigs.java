@@ -5,7 +5,10 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 public final class CTREConfigs {
     public TalonFXConfiguration swerveAngleFXConfig = new TalonFXConfiguration();
+    // Inverted Angle Config
+    public TalonFXConfiguration swerveAngleFXConfigI = new TalonFXConfiguration();
     public TalonFXConfiguration swerveDriveFXConfig = new TalonFXConfiguration();
+    public TalonFXConfiguration swerveDriveFXConfigI = new TalonFXConfiguration();
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
 
     public CTREConfigs(){

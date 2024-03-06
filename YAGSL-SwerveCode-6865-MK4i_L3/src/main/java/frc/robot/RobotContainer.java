@@ -4,12 +4,21 @@
 
 package frc.robot;
 
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShootCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.subsystems.HolsterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.PnuematicsSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.MechanismConstants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -29,17 +38,13 @@ public class RobotContainer
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                         "swerve/neo"));
+                                                                        "swerve"));
 
   //TODO: Please check that you're actually using a joystick (not xboxcontroller etc.) or that you have a reason for using this class
-  private final Joystick driver = new Joystick(0);
+  // *NEW* Changed to xBox Controller
+  private final XboxController driver = new XboxController(0);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
-
-  /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
 
   // The robot's subsystems and commands are defined here...
   private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
@@ -57,7 +62,7 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
 
-    AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
+    /*AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                    () -> -MathUtil.applyDeadband(driverXbox.getLeftY(),
                                                                                                 OperatorConstants.LEFT_Y_DEADBAND),
                                                                    () -> -MathUtil.applyDeadband(driverXbox.getLeftX(),
@@ -67,7 +72,7 @@ public class RobotContainer
                                                                    driverXbox.getHID()::getYButtonPressed,
                                                                    driverXbox.getHID()::getAButtonPressed,
                                                                    driverXbox.getHID()::getXButtonPressed,
-                                                                   driverXbox.getHID()::getBButtonPressed);
+                                                                   driverXbox.getHID()::getBButtonPressed);*/
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -125,7 +130,7 @@ public class RobotContainer
     driverXbox.y().whileTrue(new ParallelCommandGroup(
                                 new ShootCommand(holster, shooter, 40),
                                 intake.noteIntake()));
-
+    driverXbox.y().onFalse(intake.stopIntake());
     // driverXbox.x().onFalse(pnuematics.flipHolster());
     //JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
     //    lowerButton.whenPressed(lower().PneumaticsSubsystem);

@@ -17,11 +17,11 @@ public class ShooterSubsystem extends SubsystemBase
     {
         // Creates intake motor
         shooter = new TalonFX(ID);
-        shooter.setInverted(true);
+        shooter.setInverted(false);
 
         // set slot 0 gains
         var slot0Configs = new Slot0Configs();
-        slot0Configs.kS = 0.1; // Add 0.05 V output to overcome static friction
+        slot0Configs.kS = 0.05; // Add 0.05 V output to overcome static friction
         slot0Configs.kV = 0.3; // A velocity target of 1 rps results in 0.3 V output
         slot0Configs.kP = 0.11; // An error of 1 rps results in 0.11 V output
         slot0Configs.kI = 0; // no output for integrated error
