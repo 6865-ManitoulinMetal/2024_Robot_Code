@@ -2,50 +2,58 @@ package frc.robot.subsystems;
 
 
 import frc.robot.Constants.MechanismConstants;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 public class HolsterSubsystem extends SubsystemBase 
-{
-    public TalonSRX holsterSrx;
 
-    public HolsterSubsystem(int ID) 
-    {
-        // Creates holster motor
-        holsterSrx = new TalonSRX(ID);
-    }
-   
+{
+    public TalonSRX holsterSRX;   
    
     // Method to run Holster for Intake
-    public void Intake() 
+    public HolsterSubsystem(int ID) 
     {
-        holsterSrx.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Intake_Speed);
+        holsterSRX = new TalonSRX(ID);
     }
-   
+
     // Method to reverse Holster
     public void Reverse()
     {
-        holsterSrx.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Backwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Backwards_Speed);
     }
 
     public void Shoot()
     {
-        holsterSrx.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Forwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Forwards_Speed);
+    }
+
+    public void Intake(){
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Intake_Speed);
     }
 
     public void Stop()
     {
-        holsterSrx.set(TalonSRXControlMode.Current, 0);
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, 0);
     }
-   
-    public Command holsterIntake() 
+   public Command holsterIntake() 
     {
         return runOnce(
             () -> 
             {
-                Intake();
+                Intake();;
+            }
+            );
+    }
+     public Command holsterShoot() 
+    {
+        return runOnce(
+            () -> 
+            {
+                Shoot();;
             }
             );
     }

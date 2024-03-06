@@ -8,7 +8,6 @@ import com.pathplanner.lib.util.PIDConstants;
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.PubSub;
 import swervelib.math.Matter;
 
 /**
@@ -21,6 +20,9 @@ import swervelib.math.Matter;
  */
 public final class Constants
 {
+  public static final double stickDeadband = 0.1;
+
+  //YAGSL defaults 
 
   public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
@@ -40,21 +42,6 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
-  public static final class MechanismConstants
-  { 
-    // Intake ID and speeds
-    public static final int Intake_ID_1 = 10;
-    public static final int Intake_ID_2 = 9;
-    public static final double Intake_Speed = 0.5;
-    public static final double Intake_Reverse_Speed = -0.5;
-
-    // Holster IDs and speeds
-    public static final int Holster_Motor_ID = 11;
-    public static final double Holster_Intake_Speed = 0.7;
-    public static final double Holster_Forwards_Speed = 0.9;
-    public static final double Holster_Backwards_Speed = -0.4;
-  }
-  
   public static class OperatorConstants
   {
 
@@ -64,4 +51,29 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  //End of YAGSL defaults
+
+  public static final class MechanismConstants
+  { 
+    // Intake ID and speeds
+    public static final int Intake_ID_1 = 8;
+    public static final int Intake_ID_2 = 9;
+    public static final double Intake_Speed_1 = 1;
+    public static final double Intake_Speed_2 = 1;
+    public static final double Intake_Reverse_Speed = -1;
+
+    // Holster IDs and speeds
+    public static final int Holster_Motor_ID = 10;
+    public static final double Holster_Intake_Speed = -0.7;
+    public static final double Holster_Forwards_Speed = -1;
+    public static final double Holster_Backwards_Speed = 0.7;
+ 
+    // Holster IDs and speeds
+    public static final int Shooter_Motor_ID = 11;
+    public static final double Shooter_Speed = 1;
+    public static final double Shooter_Forwards_Speed = -0.9;
+    public static final double Shooter_Backwards_Speed = 0.4;
+  }
+
 }
