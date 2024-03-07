@@ -30,23 +30,43 @@ public class SwerveModule {
     /* angle motor control requests */
     private final PositionVoltage anglePosition = new PositionVoltage(0);
 
-    public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
+    public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants, boolean inverted){
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
         
-        /* Angle Encoder Config */
-        angleEncoder = new CANcoder(moduleConstants.cancoderID);
-        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
-
+        /* Angle Encoder Config */       
         /* Angle Motor Config */
-        mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
-        mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
-        resetToAbsolute();
+        if (!inverted)
+        {
+            mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
+            mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
+            angleEncoder = new CANcoder(moduleConstants.cancoderID);
+            angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+            resetToAbsolute();
+        }
+        else
+        {
+            mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
+            mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfigI);
+            angleEncoder = new CANcoder(moduleConstants.cancoderID);
+            angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+            resetToAbsolute();
+        }
+
 
         /* Drive Motor Config */
-        mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
-        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
-        mDriveMotor.getConfigurator().setPosition(0.0);
+        if (!inverted)
+        {
+            mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
+            mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
+            mDriveMotor.getConfigurator().setPosition(0.0);
+        }
+        else
+        {
+            mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
+            mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfigI);
+            mDriveMotor.getConfigurator().setPosition(0.0);
+        }
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){

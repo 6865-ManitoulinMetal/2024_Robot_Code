@@ -82,12 +82,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
  // Bind  button to run the command when pressed
 
- 
+    driverXbox.b().onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
     driverXbox.a().whileTrue(new IntakeCommand(intake, holster));
     driverXbox.x().whileTrue(new ShootCommand(holster, shooter, 40));
-    driverXbox.y().whileTrue(new ParallelCommandGroup(
-                                new ShootCommand(holster, shooter, 40),
-                                intake.noteIntake()));
+    //driverXbox.y().whileTrue(new ParallelCommandGroup(
+                    //            new ShootCommand(holster, shooter, 40),
+                    //            intake.noteIntake();
 
    // driverXbox.x().onFalse(pnuematics.flipHolster());
 //JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);

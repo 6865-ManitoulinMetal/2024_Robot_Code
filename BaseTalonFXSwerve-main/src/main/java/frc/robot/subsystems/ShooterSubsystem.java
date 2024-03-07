@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase
     {
         // Creates intake motor
         shooter = new TalonFX(ID);
-        shooter.setInverted(true);
+        shooter.setInverted(false);
 
         // set slot 0 gains
         var slot0Configs = new Slot0Configs();
