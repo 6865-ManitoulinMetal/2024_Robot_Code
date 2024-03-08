@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.MechanismConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
@@ -46,7 +47,12 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+  
+    // Internal Robot Triggers
+    Trigger initialHolsterDetector = new Trigger(() -> holster.getInitialConveyorSensor());
+    Trigger finalHolsterDetector = new Trigger(() -> holster.getFinalConveyorSensor());
+    Trigger launcherHolsterDetector = new Trigger(() -> holster.getLauncherConveyorSensor());
+   
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
 
