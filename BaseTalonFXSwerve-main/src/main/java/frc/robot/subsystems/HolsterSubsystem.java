@@ -15,18 +15,13 @@ public class HolsterSubsystem extends SubsystemBase
 
 {
     public TalonSRX holsterSRX;
-    private DigitalInput initialHolsterSensor;
-    private DigitalInput finalHolsterSensor;
-    private DigitalInput launcherHolsterSensor;   
+    private DigitalInput holsterSensor;   
    
     // Method to run Holster for Intake
     public HolsterSubsystem(int ID) 
     {
         holsterSRX = new TalonSRX(ID);
-        initialHolsterSensor = new DigitalInput(0);
-        finalHolsterSensor = new DigitalInput(1);
-        launcherHolsterSensor = new DigitalInput(2);
-
+        holsterSensor = new DigitalInput(0);
     }
 
     // Method to reverse Holster
@@ -48,16 +43,8 @@ public class HolsterSubsystem extends SubsystemBase
     {
         holsterSRX.set(TalonSRXControlMode.PercentOutput, 0);
     }
-    public boolean getInitialConveyorSensor() {
-        return !initialHolsterSensor.get();
-      }
-    
-      public boolean getFinalConveyorSensor() {
-        return !finalHolsterSensor.get();
-      }
-    
-      public boolean getLauncherConveyorSensor() {
-        return !launcherHolsterSensor.get();
+    public boolean getHolsterSensor() {
+        return holsterSensor.get();
       }
     
 
@@ -80,7 +67,18 @@ public class HolsterSubsystem extends SubsystemBase
             );
     }
 
-    public Command holsterStop() 
+    public Command reverseHolster()
+    {
+        return runOnce
+        (
+            () -> 
+            {
+                Reverse();
+            }
+        );
+    }
+
+    public Command stopHolster() 
     {
         return runOnce(
             () -> 
@@ -93,9 +91,6 @@ public class HolsterSubsystem extends SubsystemBase
     @Override
     public void periodic()
     { 
-    SmartDashboard.putBoolean("Intake Sensor", !initialHolsterSensor.get());
-    SmartDashboard.putBoolean("Holster Sensor", !finalHolsterSensor.get());
-    SmartDashboard.putBoolean("Shooter Sensor", !launcherHolsterSensor.get());
-    // This method will be called once per scheduler run
+        SmartDashboard.putBoolean("Holster Sensor", holsterSensor.get());
     }   
 }

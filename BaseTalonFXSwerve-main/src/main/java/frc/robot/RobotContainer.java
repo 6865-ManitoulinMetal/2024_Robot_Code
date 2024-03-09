@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -29,6 +30,7 @@ public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final CommandXboxController driverXbox = new CommandXboxController(0);
+    private final CommandXboxController mechanismsXbox = new CommandXboxController(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -49,9 +51,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
   
     // Internal Robot Triggers
-    Trigger initialHolsterDetector = new Trigger(() -> holster.getInitialConveyorSensor());
-    Trigger finalHolsterDetector = new Trigger(() -> holster.getFinalConveyorSensor());
-    Trigger launcherHolsterDetector = new Trigger(() -> holster.getLauncherConveyorSensor());
+    Trigger holsterDetector = new Trigger(() -> holster.getHolsterSensor());
    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -89,13 +89,25 @@ public class RobotContainer {
  // Bind  button to run the command when pressed
 
     driverXbox.b().onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-    driverXbox.a().whileTrue(new IntakeCommand(intake, holster));
-    driverXbox.x().whileTrue(new ShootCommand(holster, shooter, 40));
-    //driverXbox.y().whileTrue(new ParallelCommandGroup(
-                    //            new ShootCommand(holster, shooter, 40),
-                    //            intake.noteIntake();
 
-   // driverXbox.x().onFalse(pnuematics.flipHolster());
+    // On hold a, intake note into holster - stops when breaks beam
+    mechanismsXbox.leftTrigger().onTrue(new IntakeCommand(intake, holster).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    // Cancel intake command
+    mechanismsXbox.leftTrigger().onFalse(new ParallelCommandGroup(holster.stopHolster(), intake.stopIntake()));
+
+    // Shoot command trigger
+    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 40));
+
+    // Overridden intake trigger
+    mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
+                                holster.holsterIntake(),
+                                intake.noteIntake()));
+    
+    // Reverse holster/intake trigger
+    mechanismsXbox.a().whileTrue(holster.reverseHolster());
+    mechanismsXbox.b().whileTrue(intake.reverseIntake());    
+   
+    // driverXbox.x().onFalse(pnuematics.flipHolster());
 //JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
 

@@ -159,15 +159,14 @@ public final class Constants {
     public static final double Holster_Intake_Speed = -0.7;
     public static final double Holster_Forwards_Speed = -1;
     public static final double Holster_Backwards_Speed = 0.7;
-    public static final int initialHolsterSensor = 0;
-    public static final int finalHolsterSensor = 1;
-    public static final int launcherHolsterSensor = 2;
+    public static final int Holster_Sensor_ID = 0;
+
  
     // Holster IDs and speeds
     public static final int Shooter_Motor_ID = 11;
-    public static final double Shooter_Speed = 1;
-    public static final double Shooter_Forwards_Speed = -0.9;
-    public static final double Shooter_Backwards_Speed = 0.4;
+    //public static final double Shooter_Speed = 1;
+    //public static final double Shooter_Forwards_Speed = -0.9;
+    ///public static final double Shooter_Backwards_Speed = 0.4;
  
   }
   
