@@ -162,13 +162,16 @@ public final class Constants {
     public static final int Holster_Sensor_ID = 0;
 
  
-    // Holster IDs and speeds
+    // Shooter IDs and speeds
     public static final int Shooter_Motor_ID = 11;
     //public static final double Shooter_Speed = 1;
     //public static final double Shooter_Forwards_Speed = -0.9;
     ///public static final double Shooter_Backwards_Speed = 0.4;
- 
+
+
   }
+    //PWM PORTS
+    public static final int LED_PORT = 9;
   
 }
 
