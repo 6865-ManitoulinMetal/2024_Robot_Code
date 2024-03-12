@@ -51,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase
     {
         shooter.setControl(velocityRequest.withVelocity(0));
     }
-   
+   /* 
     public Command shoot() 
     {
         return runOnce(
@@ -61,7 +61,7 @@ public class ShooterSubsystem extends SubsystemBase
             }
             );
     }
-
+*/
     public Command shooterStop() 
     {
         return runOnce(

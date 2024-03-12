@@ -42,7 +42,6 @@ public class SwerveModule {
             mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
             angleEncoder = new CANcoder(moduleConstants.cancoderID);
             angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
-            resetToAbsolute();
         }
         else
         {
@@ -50,8 +49,8 @@ public class SwerveModule {
             mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfigI);
             angleEncoder = new CANcoder(moduleConstants.cancoderID);
             angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
-            resetToAbsolute();
         }
+        resetToAbsolute();
 
 
         /* Drive Motor Config */
