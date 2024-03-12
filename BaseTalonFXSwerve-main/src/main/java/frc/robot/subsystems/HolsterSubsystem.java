@@ -27,7 +27,7 @@ public class HolsterSubsystem extends SubsystemBase
     // Method to reverse Holster
     public void Reverse()
     {
-        holsterSRX.set(TalonSRXControlMode.Current, MechanismConstants.Holster_Backwards_Speed);
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Backwards_Speed);
     }
 
     public void Shoot()
@@ -91,6 +91,6 @@ public class HolsterSubsystem extends SubsystemBase
     @Override
     public void periodic()
     { 
-        SmartDashboard.putBoolean("Holster Sensor", holsterSensor.get());
+        SmartDashboard.putBoolean("Holster Sensor", !holsterSensor.get());
     }   
 }
