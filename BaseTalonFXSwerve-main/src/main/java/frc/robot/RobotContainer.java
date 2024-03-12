@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,6 +22,7 @@ import frc.robot.Constants.MechanismConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
@@ -31,8 +33,10 @@ import com.pathplanner.lib.path.PathPlannerPath;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer 
+
+public class RobotContainer
 {
+
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final CommandXboxController driverXbox = new CommandXboxController(0);
@@ -43,24 +47,24 @@ public class RobotContainer
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
     
-
-    
     // The robot's subsystems and commands are defined here...
     private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
     private final HolsterSubsystem holster = new HolsterSubsystem(10);
-    private final ShooterSubsystem shooter = new ShooterSubsystem(11);  
+    private final ShooterSubsystem shooter = new ShooterSubsystem(11);
+    private final ClimberSubsystem climber = new ClimberSubsystem(21);    
     private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
- 
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-  
+    private final JoystickButton climberJoystickButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    
     // Internal Robot Triggers
     Trigger holsterDetector = new Trigger(() -> holster.getHolsterSensor());
    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
+    private final LEDSubsystem led = new LEDSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -76,6 +80,21 @@ public class RobotContainer
                 () -> robotCentric.getAsBoolean()
             )
         );
+
+         // Put Some buttons on the SmartDashboard
+
+    SmartDashboard.putData("Green LED", new RunCommand(() -> led.green(),led));
+    SmartDashboard.putData("Red LED", new RunCommand(() -> led.red(),led));
+    SmartDashboard.putData("Blue LED", new RunCommand(() -> led.blue(),led));
+    SmartDashboard.putData("Pink LED", new RunCommand(() -> led.pink(),led));
+    SmartDashboard.putData("Turquoise LED", new RunCommand(() -> led.turquoise(),led));
+    
+
+
+    led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
+    //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
+    
+
 
         // Configure the button bindings
         configureButtonBindings();
@@ -107,11 +126,6 @@ public class RobotContainer
 
     // Shoot command trigger
     mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 35));
-
-    // Overridden intake trigger
-    mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
-                                holster.holsterIntake(),
-                                intake.noteIntake()));
     
     // Reverse holster/intake trigger
     mechanismsXbox.a().onTrue(holster.reverseHolster());
@@ -124,8 +138,13 @@ public class RobotContainer
 
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
 
+    driverXbox.rightTrigger().onTrue(climber.raiseClimber());
+    driverXbox.rightTrigger().onFalse(climber.stopClimber());
+    driverXbox.rightBumper().onTrue(climber.lowerClimber());
+    driverXbox.rightBumper().onFalse(climber.stopClimber());
     }
 
+    
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
@@ -140,4 +159,5 @@ public class RobotContainer
 
         return AutoBuilder.followPath(path);
     }
+    
 }

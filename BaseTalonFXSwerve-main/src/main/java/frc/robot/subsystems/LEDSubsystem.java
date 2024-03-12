@@ -27,7 +27,9 @@ public class LEDSubsystem extends SubsystemBase {
     // Reuse buffer
     // Default to a length of 60, start empty output
     // Length is expensive to set, so only set it once, then just update data
-    m_ledBuffer = new AddressableLEDBuffer(36);
+
+    m_ledBuffer = new AddressableLEDBuffer(36); //TODO: Set to number of our LED
+
     m_led.setLength(m_ledBuffer.getLength());
 
     // Set the data
@@ -63,6 +65,33 @@ public class LEDSubsystem extends SubsystemBase {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red
       m_ledBuffer.setRGB(i, 255, 0, 0);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
+  public void pink() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for pink
+      m_ledBuffer.setRGB(i, 255, 192, 203);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
+  public void gold() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for gold
+      m_ledBuffer.setRGB(i, 255, 215, 0);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
+  public void turquoise() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for turquoise
+      m_ledBuffer.setRGB(i, 64, 224, 208);
    }
    
    m_led.setData(m_ledBuffer);
