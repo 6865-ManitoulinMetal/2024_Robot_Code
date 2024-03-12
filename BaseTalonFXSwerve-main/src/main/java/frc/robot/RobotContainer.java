@@ -46,7 +46,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
   private final HolsterSubsystem holster = new HolsterSubsystem(10);
-  private final ShooterSubsystem shooter = new ShooterSubsystem(11);  
+  private final ShooterSubsystem shooter = new ShooterSubsystem(11);
+  private final ClimberSubsystem climber = new ClimberSubsystem(12);    
   private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
  
 
@@ -54,7 +55,7 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-  
+    private final JoystickButton climberJoystickButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
     // Internal Robot Triggers
     Trigger holsterDetector = new Trigger(() -> holster.getHolsterSensor());
@@ -119,6 +120,7 @@ public class RobotContainer {
 
     // Shoot command trigger
     mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 35));
+    
 
     // Overridden intake trigger
     mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
