@@ -64,7 +64,7 @@ public class RobotContainer
    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final LEDSubsystem led = new LEDSubsystem();
+    /*private final LEDSubsystem led = new LEDSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -80,9 +80,10 @@ public class RobotContainer
                 () -> robotCentric.getAsBoolean()
             )
         );
+    }
 
          // Put Some buttons on the SmartDashboard
-
+/** 
     SmartDashboard.putData("Green LED", new RunCommand(() -> led.green(),led));
     SmartDashboard.putData("Red LED", new RunCommand(() -> led.red(),led));
     SmartDashboard.putData("Blue LED", new RunCommand(() -> led.blue(),led));
@@ -93,7 +94,7 @@ public class RobotContainer
 
     led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
     //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
-    
+     /** 
 
 
         // Configure the button bindings
