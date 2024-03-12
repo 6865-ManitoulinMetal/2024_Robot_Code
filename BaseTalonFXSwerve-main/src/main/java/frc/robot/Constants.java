@@ -67,13 +67,13 @@ public final class Constants {
         public static final double angleKD = chosenModule.angleKD;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.1; //TODO: This must be tuned to specific robot
+        public static final double driveKP = 0.1; //tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = 0.32; //TODO: This must be tuned to specific robot
+        public static final double driveKS = 0.32; //tuned to specific robot
         public static final double driveKV = 1.51;
         public static final double driveKA = 0.27;
 
@@ -129,7 +129,7 @@ public final class Constants {
         }
     }
 
-    public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
+    public static final class AutoConstants { //The below constants are used in the example auto, and must be tuned to specific robot
         public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -162,13 +162,18 @@ public final class Constants {
     public static final int Holster_Sensor_ID = 0;
 
  
-    // Holster IDs and speeds
+    // Shooter IDs and speeds
     public static final int Shooter_Motor_ID = 11;
     //public static final double Shooter_Speed = 1;
     //public static final double Shooter_Forwards_Speed = -0.9;
     ///public static final double Shooter_Backwards_Speed = 0.4;
- 
+
+     // Climber IDs and speeds
+     public static final int Climber_Motor_ID = 12;
+
   }
+    //PWM PORTS
+    public static final int LED_PORT = 9;
   
 }
 
