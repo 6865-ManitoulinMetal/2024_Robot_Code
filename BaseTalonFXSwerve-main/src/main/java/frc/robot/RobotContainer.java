@@ -86,7 +86,7 @@ public class RobotContainer {
     
 
 
-    led.gold(); // Turns on Purple LED's even when disabled ---- There may be a better place 
+    led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
     //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
     
 
