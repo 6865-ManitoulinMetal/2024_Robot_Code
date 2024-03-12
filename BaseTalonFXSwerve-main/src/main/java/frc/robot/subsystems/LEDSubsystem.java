@@ -68,6 +68,33 @@ public class LEDSubsystem extends SubsystemBase {
    m_led.setData(m_ledBuffer);
   }
 
+  public void pink() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for pink
+      m_ledBuffer.setRGB(i, 255, 192, 203);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
+  public void gold() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for gold
+      m_ledBuffer.setRGB(i, 255, 215, 0);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
+  public void turquoise() {
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for turquoise
+      m_ledBuffer.setRGB(i, 64, 224, 208);
+   }
+   
+   m_led.setData(m_ledBuffer);
+  }
+
   public void blue() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red

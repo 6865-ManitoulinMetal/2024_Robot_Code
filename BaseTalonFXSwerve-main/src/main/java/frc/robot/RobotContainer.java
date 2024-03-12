@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -18,6 +19,7 @@ import frc.robot.Constants.MechanismConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -27,6 +29,8 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+    
+    
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final CommandXboxController driverXbox = new CommandXboxController(0);
@@ -46,15 +50,18 @@ public class RobotContainer {
   private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
  
 
+
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
   
+    
     // Internal Robot Triggers
     Trigger holsterDetector = new Trigger(() -> holster.getHolsterSensor());
    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
+    private final LEDSubsystem led = new LEDSubsystem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -68,6 +75,21 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
+
+         // Put Some buttons on the SmartDashboard
+
+    SmartDashboard.putData("Green LED", new RunCommand(() -> led.green(),led));
+    SmartDashboard.putData("Red LED", new RunCommand(() -> led.red(),led));
+    SmartDashboard.putData("Blue LED", new RunCommand(() -> led.blue(),led));
+    SmartDashboard.putData("Pink LED", new RunCommand(() -> led.pink(),led));
+    SmartDashboard.putData("Turquoise LED", new RunCommand(() -> led.turquoise(),led));
+    
+
+
+    led.gold(); // Turns on Purple LED's even when disabled ---- There may be a better place 
+    //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
+    
+
 
         // Configure the button bindings
         configureButtonBindings();
@@ -113,6 +135,7 @@ public class RobotContainer {
 
     }
 
+    
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
@@ -122,4 +145,5 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         return new exampleAuto(s_Swerve);
     }
+    
 }
