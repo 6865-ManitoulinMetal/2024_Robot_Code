@@ -96,7 +96,7 @@ public class RobotContainer {
     mechanismsXbox.leftTrigger().onFalse(new ParallelCommandGroup(holster.stopHolster(), intake.stopIntake()));
 
     // Shoot command trigger
-    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 40));
+    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 35));
 
     // Overridden intake trigger
     mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
@@ -104,11 +104,14 @@ public class RobotContainer {
                                 intake.noteIntake()));
     
     // Reverse holster/intake trigger
-    mechanismsXbox.a().whileTrue(holster.reverseHolster());
-    mechanismsXbox.b().whileTrue(intake.reverseIntake());    
+    mechanismsXbox.a().onTrue(holster.reverseHolster());
+    mechanismsXbox.b().onTrue(intake.reverseIntake());    
+
+    mechanismsXbox.a().onFalse(holster.stopHolster());
+    mechanismsXbox.b().onFalse(intake.stopIntake());   
    
-    // driverXbox.x().onFalse(pnuematics.flipHolster());
-//JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
+    mechanismsXbox.x().onFalse(pnuematics.flipHolster());
+
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
 
     }
