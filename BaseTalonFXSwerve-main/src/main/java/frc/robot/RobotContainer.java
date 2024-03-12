@@ -51,7 +51,7 @@ public class RobotContainer
     private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
     private final HolsterSubsystem holster = new HolsterSubsystem(10);
     private final ShooterSubsystem shooter = new ShooterSubsystem(11);
-    private final ClimberSubsystem climber = new ClimberSubsystem(12);    
+    private final ClimberSubsystem climber = new ClimberSubsystem(21);    
     private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
 
     /* Driver Buttons */
@@ -127,12 +127,6 @@ public class RobotContainer
     // Shoot command trigger
     mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 35));
     
-
-    // Overridden intake trigger
-    mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
-                                holster.holsterIntake(),
-                                intake.noteIntake()));
-    
     // Reverse holster/intake trigger
     mechanismsXbox.a().onTrue(holster.reverseHolster());
     mechanismsXbox.b().onTrue(intake.reverseIntake());    
@@ -144,6 +138,10 @@ public class RobotContainer
 
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
 
+    driverXbox.rightTrigger().onTrue(climber.raiseClimber());
+    driverXbox.rightTrigger().onFalse(climber.stopClimber());
+    driverXbox.rightBumper().onTrue(climber.lowerClimber());
+    driverXbox.rightBumper().onFalse(climber.stopClimber());
     }
 
     

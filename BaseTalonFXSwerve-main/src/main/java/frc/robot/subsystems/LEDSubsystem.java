@@ -22,7 +22,7 @@ public class LEDSubsystem extends SubsystemBase {
   public LEDSubsystem() {
     // PWM port 9
     // Must be a PWM header
-    m_led = new AddressableLED(Constants.LED_PORT);
+    m_led = new AddressableLED(9);
 
     // Reuse buffer
     // Default to a length of 60, start empty output
