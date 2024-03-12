@@ -2,10 +2,13 @@ package frc.robot;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -18,6 +21,8 @@ import frc.robot.Constants.MechanismConstants;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 
 /**
@@ -26,7 +31,8 @@ import frc.robot.subsystems.*;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer 
+{
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final CommandXboxController driverXbox = new CommandXboxController(0);
@@ -39,11 +45,11 @@ public class RobotContainer {
     
 
     
-  // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
-  private final HolsterSubsystem holster = new HolsterSubsystem(10);
-  private final ShooterSubsystem shooter = new ShooterSubsystem(11);  
-  private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
+    // The robot's subsystems and commands are defined here...
+    private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
+    private final HolsterSubsystem holster = new HolsterSubsystem(10);
+    private final ShooterSubsystem shooter = new ShooterSubsystem(11);  
+    private final PnuematicsSubsystem pnuematics = new PnuematicsSubsystem(1,2,3);   
  
 
     /* Driver Buttons */
@@ -56,9 +62,11 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
 
+    private final SendableChooser<Command> autoChooser;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
+    public RobotContainer() 
+    {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -72,7 +80,8 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         
-        
+        autoChooser = AutoBuilder.buildAutoChooser();
+
     }
 
     /**
@@ -81,7 +90,8 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
-    private void configureButtonBindings() {
+    private void configureButtonBindings() 
+    {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
         
@@ -121,8 +131,13 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+    public Command getAutonomousCommand() 
+    {
+       /* // An ExampleCommand will run in autonomous
+        return new exampleAuto(s_Swerve); */
+
+        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Auto");
+
+        return AutoBuilder.followPath(path);
     }
 }
