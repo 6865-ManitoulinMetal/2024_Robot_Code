@@ -67,21 +67,21 @@ public final class Constants {
         public static final double angleKD = chosenModule.angleKD;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.1; //TODO: This must be tuned to specific robot
+        public static final double driveKP = 0.1; //tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = 0.32; //TODO: This must be tuned to specific robot
+        public static final double driveKS = 0.32; //tuned to specific robot
         public static final double driveKV = 1.51;
         public static final double driveKA = 0.27;
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
+        public static final double maxSpeed = 3.0; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 7.0; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
@@ -93,7 +93,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 0;
             public static final int canCoderID = 17;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-104.67);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(103.80);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -103,7 +103,7 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 18;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-4.13);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(5.10);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -113,7 +113,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-87.24);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(85.34);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -123,13 +123,13 @@ public final class Constants {
             public static final int driveMotorID = 5;
             public static final int angleMotorID = 4;
             public static final int canCoderID = 19;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-163.65);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(163.71);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
     }
 
-    public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
+    public static final class AutoConstants { //The below constants are used in the example auto, and must be tuned to specific robot
         public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -158,17 +158,22 @@ public final class Constants {
     public static final int Holster_Motor_ID = 10;
     public static final double Holster_Intake_Speed = -0.7;
     public static final double Holster_Forwards_Speed = -1;
-    public static final double Holster_Backwards_Speed = 0.7;
+    public static final double Holster_Backwards_Speed = 1;
     public static final int Holster_Sensor_ID = 0;
 
  
-    // Holster IDs and speeds
+    // Shooter IDs and speeds
     public static final int Shooter_Motor_ID = 11;
     //public static final double Shooter_Speed = 1;
     //public static final double Shooter_Forwards_Speed = -0.9;
     ///public static final double Shooter_Backwards_Speed = 0.4;
- 
+
+     // Climber IDs and speeds
+     public static final int Climber_Motor_ID = 12;
+
   }
+    //PWM PORTS
+    public static final int LED_PORT = 9;
   
 }
 
