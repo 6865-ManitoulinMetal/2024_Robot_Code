@@ -161,5 +161,11 @@ public class RobotContainer
 
         //return AutoBuilder.followPath(path);
     }
+
+
+    public Command getAutonomousCommand() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
+    }
     
 }

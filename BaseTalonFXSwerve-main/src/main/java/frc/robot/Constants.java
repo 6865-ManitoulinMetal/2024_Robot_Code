@@ -169,7 +169,7 @@ public final class Constants {
     ///public static final double Shooter_Backwards_Speed = 0.4;
 
      // Climber IDs and speeds
-     public static final int Climber_Motor_ID = 12;
+     public static final int Climber_Motor_ID = 21;
 
   }
     //PWM PORTS
