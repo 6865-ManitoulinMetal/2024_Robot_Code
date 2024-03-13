@@ -15,11 +15,6 @@ public class LEDSubsystem extends SubsystemBase {
   private AddressableLEDBuffer m_ledBuffer;
   private HolsterSubsystem holsterSubsystem;
 
-
-  public LEDSubsystem(HolsterSubsystem holsterSubsystem) {
-    this.holsterSubsystem = holsterSubsystem;
-  }
-
   // Store what the last hue of the first pixel is
   private int m_rainbowFirstPixelHue;
 
@@ -27,7 +22,7 @@ public class LEDSubsystem extends SubsystemBase {
   private int blueStreakLED = 0;
   private int numLoops = 0;
   
-  public LEDSubsystem() {
+  public LEDSubsystem(HolsterSubsystem holsterSubsystem) {
     // PWM port 9
     // Must be a PWM header
     m_led = new AddressableLED(9);
@@ -43,12 +38,14 @@ public class LEDSubsystem extends SubsystemBase {
     // Set the data
     m_led.setData(m_ledBuffer);
     m_led.start();
+
+    this.holsterSubsystem = holsterSubsystem;
   }
 
   @Override
   public void periodic() {
     
-      if (holsterSubsystem.getHolsterSensor()) {
+      if (this.holsterSubsystem.getHolsterSensor()) {
           // Light beam is broken, turn LEDs green
           green();
       } else {

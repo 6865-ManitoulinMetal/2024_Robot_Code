@@ -14,7 +14,6 @@ public class ShootCommand extends Command {
   private final HolsterSubsystem holster;
   private final ShooterSubsystem shooter;
   private double targetSpeedRPS;
-  private boolean shoot;
 
   /**
    * Creates a new ExampleCommand.
@@ -23,7 +22,7 @@ public class ShootCommand extends Command {
    */
   public ShootCommand(HolsterSubsystem holster, ShooterSubsystem shooter, double targetSpeedRPS) 
   {
-    this.shoot = false;
+
     this.targetSpeedRPS = targetSpeedRPS;
     this.shooter = shooter;
     this.holster = holster;

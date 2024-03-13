@@ -23,8 +23,10 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import com.pathplanner.lib.commands.PathPlannerAuto;
-//import com.pathplanner.lib.path.PathPlannerPath;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 
 /**
@@ -57,20 +59,17 @@ public class RobotContainer
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton climberJoystickButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-    
-    // Internal Robot Triggers
-    Trigger holsterDetector = new Trigger(() -> holster.getHolsterSensor());
    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final LEDSubsystem led = new LEDSubsystem();
+    private final LEDSubsystem led = new LEDSubsystem(holster);
 
-    //private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
+
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -97,9 +96,9 @@ public class RobotContainer
 
 
         // Configure the button bindings
-       // configureButtonBindings();
+        configureButtonBindings();
         
-        //autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser = AutoBuilder.buildAutoChooser();
 
     }
 
@@ -125,20 +124,17 @@ public class RobotContainer
     mechanismsXbox.leftTrigger().onFalse(new ParallelCommandGroup(holster.stopHolster(), intake.stopIntake()));
 
     // Shoot command trigger
-    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 40));
-
-    // Overridden intake trigger
-    mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
-                                holster.holsterIntake(),
-                                intake.noteIntake()));
+    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 45));
     
     // Reverse holster/intake trigger
     mechanismsXbox.a().whileTrue(holster.reverseHolster());
     mechanismsXbox.b().whileTrue(intake.reverseIntake());    
-   
-    // driverXbox.x().onFalse(pnuematics.flipHolster());
-//JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
-//    lowerButton.whenPressed(lower().PneumaticsSubsystem);
+    mechanismsXbox.a().onFalse(holster.stopHolster());
+    mechanismsXbox.b().onFalse(intake.stopIntake());    
+
+
+    // Toggling holster
+    mechanismsXbox.x().onTrue(pnuematics.flipHolster());
 
     driverXbox.rightTrigger().onTrue(climber.raiseClimber());
     driverXbox.rightTrigger().onFalse(climber.stopClimber());
@@ -152,20 +148,13 @@ public class RobotContainer
      *
      * @return the command to run in autonomous
      */
-    //public Command getAutonomousCommand() 
+    public Command getAutonomousCommand() 
     {
-       /* // An ExampleCommand will run in autonomous
+       /*  An ExampleCommand will run in autonomous
         return new exampleAuto(s_Swerve); */
 
-        //PathPlannerPath path = PathPlannerPath.fromPathFile("Example Auto");
+        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
 
-        //return AutoBuilder.followPath(path);
+        return AutoBuilder.followPath(path);
     }
-
-
-    public Command getAutonomousCommand() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
-    }
-    
 }
