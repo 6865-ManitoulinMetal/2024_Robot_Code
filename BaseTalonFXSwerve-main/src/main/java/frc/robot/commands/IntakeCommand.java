@@ -27,7 +27,7 @@ public class IntakeCommand extends Command {
     public boolean isFinished()
     {
         return !holsterSubsystem.getHolsterSensor();
-        return holsterSubsystem.getHolsterSensor();
+        //return holsterSubsystem.getHolsterSensor();
     }
 
 
