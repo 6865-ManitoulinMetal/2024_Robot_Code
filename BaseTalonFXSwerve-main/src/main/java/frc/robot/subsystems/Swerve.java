@@ -28,7 +28,6 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public AHRS gyro;
-    public ChassisSpeeds chassisSpeeds;
 
     public Swerve() {
         gyro = new AHRS(SPI.Port.kMXP);
@@ -42,10 +41,6 @@ public class Swerve extends SubsystemBase {
             new SwerveModule(3, Constants.Swerve.Mod3.constants, false)
         };
 
-        for (SwerveModule mod : mSwerveMods)
-        {
-            mod.resetToAbsolute();
-        }
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getGyroYaw(), getModulePositions());
 
         AutoBuilder.configureHolonomic(
@@ -131,13 +126,11 @@ public class Swerve extends SubsystemBase {
         return positions;
     }
 
-    public Pose2d getPose()
-    {
+    public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }
 
-    public void setPose(Pose2d pose) 
-    {
+    public void setPose(Pose2d pose) {
         swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), pose);
     }
 

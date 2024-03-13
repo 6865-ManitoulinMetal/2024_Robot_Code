@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public class PnuematicsSubsystem extends SubsystemBase 
 {
     public DoubleSolenoid doubleSolenoid1;
-    public Compressor compressor;
 
 
     
@@ -97,6 +95,6 @@ public class PnuematicsSubsystem extends SubsystemBase
     @Override
     public void periodic()
     { 
-
+        
     }    
 }

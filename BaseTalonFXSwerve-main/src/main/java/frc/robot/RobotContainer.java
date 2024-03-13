@@ -2,7 +2,7 @@ package frc.robot;
 
 import java.io.File;
 
-import com.pathplanner.lib.auto.AutoBuilder;
+//import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -23,8 +23,8 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
+//import com.pathplanner.lib.commands.PathPlannerAuto;
+//import com.pathplanner.lib.path.PathPlannerPath;
 
 
 /**
@@ -66,7 +66,7 @@ public class RobotContainer
     private final Swerve s_Swerve = new Swerve();
     private final LEDSubsystem led = new LEDSubsystem();
 
-    private final SendableChooser<Command> autoChooser;
+    //private final SendableChooser<Command> autoChooser;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
@@ -97,9 +97,9 @@ public class RobotContainer
 
 
         // Configure the button bindings
-        configureButtonBindings();
+       // configureButtonBindings();
         
-        autoChooser = AutoBuilder.buildAutoChooser();
+        //autoChooser = AutoBuilder.buildAutoChooser();
 
     }
 
@@ -125,17 +125,19 @@ public class RobotContainer
     mechanismsXbox.leftTrigger().onFalse(new ParallelCommandGroup(holster.stopHolster(), intake.stopIntake()));
 
     // Shoot command trigger
-    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 35));
+    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 40));
+
+    // Overridden intake trigger
+    mechanismsXbox.y().whileTrue(new ParallelCommandGroup(
+                                holster.holsterIntake(),
+                                intake.noteIntake()));
     
     // Reverse holster/intake trigger
-    mechanismsXbox.a().onTrue(holster.reverseHolster());
-    mechanismsXbox.b().onTrue(intake.reverseIntake());    
-
-    mechanismsXbox.a().onFalse(holster.stopHolster());
-    mechanismsXbox.b().onFalse(intake.stopIntake());   
+    mechanismsXbox.a().whileTrue(holster.reverseHolster());
+    mechanismsXbox.b().whileTrue(intake.reverseIntake());    
    
-    mechanismsXbox.x().onFalse(pnuematics.flipHolster());
-
+    // driverXbox.x().onFalse(pnuematics.flipHolster());
+//JoystickButton lowerButton = new JoystickButton(driver, XboxController.Button.kY.value);
 //    lowerButton.whenPressed(lower().PneumaticsSubsystem);
 
     driverXbox.rightTrigger().onTrue(climber.raiseClimber());
@@ -150,14 +152,14 @@ public class RobotContainer
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand() 
+    //public Command getAutonomousCommand() 
     {
        /* // An ExampleCommand will run in autonomous
         return new exampleAuto(s_Swerve); */
 
-        PathPlannerPath path = PathPlannerPath.fromPathFile("Example Auto");
+        //PathPlannerPath path = PathPlannerPath.fromPathFile("Example Auto");
 
-        return AutoBuilder.followPath(path);
+        //return AutoBuilder.followPath(path);
     }
     
 }
