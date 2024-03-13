@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.HolsterSubsystem;
 
 public class LEDSubsystem extends SubsystemBase {
   /**
@@ -12,6 +13,13 @@ public class LEDSubsystem extends SubsystemBase {
 
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
+  private HolsterSubsystem holsterSubsystem;
+
+
+  public LEDSubsystem(HolsterSubsystem holsterSubsystem) {
+    this.holsterSubsystem = holsterSubsystem;
+  }
+
   // Store what the last hue of the first pixel is
   private int m_rainbowFirstPixelHue;
 
@@ -39,10 +47,24 @@ public class LEDSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // Fill the buffer with a rainbow
+    
+      if (holsterSubsystem.getHolsterSensor()) {
+          // Light beam is broken, turn LEDs green
+          green();
+      } else {
+          // Light beam is unbroken, turn off LEDs
+          off();
+      }
+    }
+      public void off() {
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setRGB(i, 255, 215, 0); // Gold color
+        }
+        m_led.setData(m_ledBuffer);
+    }
 
-  }
+  // This method will be called once per scheduler run
+    // Fill the buffer with a rainbow
 
   public void rainbow() {
     // For every pixel
@@ -59,6 +81,12 @@ public class LEDSubsystem extends SubsystemBase {
     m_rainbowFirstPixelHue %= 180;
 
     m_led.setData(m_ledBuffer);
+  }
+  public void green() {
+      for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+          m_ledBuffer.setRGB(i, 0, 255, 0); // Green color
+      }
+      m_led.setData(m_ledBuffer);
   }
 
   public void red() {
@@ -106,14 +134,6 @@ public class LEDSubsystem extends SubsystemBase {
    m_led.setData(m_ledBuffer);
   }
 
-  public void green() {
-    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-      // Sets the specified LED to the RGB values for red
-      m_ledBuffer.setRGB(i, 0, 255, 0);
-   }
-   
-   m_led.setData(m_ledBuffer);
-  }
 
   public void purple() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
