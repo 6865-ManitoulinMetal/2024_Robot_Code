@@ -173,23 +173,9 @@ public final class Constants {
     public static final double Holster_Backwards_Speed = 1;
     public static final int Holster_Sensor_ID = 0;
 
- 
-    // Shooter IDs and speeds
+
     // Shooter IDs and speeds
     public static final int Shooter_Motor_ID = 11;
-    //public static final double Shooter_Speed = 1;
-    //public static final double Shooter_Forwards_Speed = -0.9;
-    ///public static final double Shooter_Backwards_Speed = 0.4;
-
-     // Climber IDs and speeds
-     public static final int Climber_Motor_ID = 12;
-
-  }
-    //PWM PORTS
-    public static final int LED_PORT = 9;
-  
-}
-
     //public static final double Shooter_Speed = 1;
     //public static final double Shooter_Forwards_Speed = -0.9;
     ///public static final double Shooter_Backwards_Speed = 0.4;
@@ -199,7 +185,10 @@ public final class Constants {
 
   }
     //PWM PORTS
-    public static final int LED_PORT = 9;
+   // public static final int LED_PORT = 9;
   
-}
+
+
+  
+
 
