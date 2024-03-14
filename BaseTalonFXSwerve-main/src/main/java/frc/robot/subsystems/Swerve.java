@@ -52,12 +52,12 @@ public class Swerve extends SubsystemBase {
 
         AutoBuilder.configureHolonomic(
             this::getPose, // Robot pose supplier
-            this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+            this::setPose, // Method to reset odometry (will be called if your auto has a starting pose)
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::autoDrive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
+                    new PIDConstants(0.1, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(20.0, 0.0, 0.0), // Rotation PID constants
                     AutoConstants.kMaxSpeedMetersPerSecond, // Max module speed, in m/s
                     0.45, // Drive base radius in meters. Distance from robot center to furthest module.
                     new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -99,13 +99,12 @@ public class Swerve extends SubsystemBase {
     }    
 
     public void autoDrive(ChassisSpeeds speeds) {
-        SwerveModuleState[] swerveModuleStates =
-            Constants.Swerve.swerveKinematics.toSwerveModuleStates(speeds);
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
-
-        for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true);
-        }
+        drive(
+            new Translation2d(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond).times(Constants.AutoConstants.kMaxSpeedMetersPerSecond), 
+            speeds.omegaRadiansPerSecond * Constants.Swerve.maxAngularVelocity, 
+            false, 
+            true
+        );
     }
 
     /* Used by SwerveControllerCommand in Auto */
@@ -141,14 +140,6 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), pose);
     }
 
-    public void resetPose(Pose2d pose) 
-    {
-        swerveOdometry.resetPosition(
-            Rotation2d.fromDegrees(gyro.getYaw()),
-            getModulePositions(),
-            pose);
-    }
-
     public ChassisSpeeds getRobotRelativeSpeeds()
     {
         return Constants.Swerve.swerveKinematics.toChassisSpeeds(getModuleStates());
@@ -175,7 +166,7 @@ public class Swerve extends SubsystemBase {
             mod.resetToAbsolute();
         }
     }
-
+    
     @Override
     public void periodic(){
         swerveOdometry.update(getGyroYaw(), getModulePositions());

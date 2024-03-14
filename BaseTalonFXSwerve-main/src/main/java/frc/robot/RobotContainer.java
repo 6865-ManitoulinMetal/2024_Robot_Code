@@ -150,11 +150,11 @@ public class RobotContainer
      */
     public Command getAutonomousCommand() 
     {
-       /*  An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve); */
-
+       /* An ExampleCommand will run in autonomous */
+        return new CenterTwoRingAuto(s_Swerve, holster, intake, shooter); 
+        /* 
         PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
 
-        return AutoBuilder.followPath(path);
+        return AutoBuilder.followPath(path);*/
     }
 }
