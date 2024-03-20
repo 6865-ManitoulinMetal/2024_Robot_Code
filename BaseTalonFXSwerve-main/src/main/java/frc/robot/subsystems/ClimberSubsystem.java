@@ -23,7 +23,7 @@ public class ClimberSubsystem extends SubsystemBase
     // Method to run climber up
     public void up() 
     {
-        climberFX.set(1);
+        climberFX.set(0.8);
     }
    
    

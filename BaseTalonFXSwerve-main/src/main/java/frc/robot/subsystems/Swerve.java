@@ -20,6 +20,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.SwerveModule;
@@ -167,6 +169,20 @@ public class Swerve extends SubsystemBase {
         }
     }
     
+    public Command stopSwerveCommand()
+    {
+        return runOnce
+        (
+            () ->
+            {
+            drive(
+                new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
+                0 * Constants.Swerve.maxAngularVelocity, 
+                false, 
+                true);
+            }
+        );
+    }
     @Override
     public void periodic(){
         swerveOdometry.update(getGyroYaw(), getModulePositions());
