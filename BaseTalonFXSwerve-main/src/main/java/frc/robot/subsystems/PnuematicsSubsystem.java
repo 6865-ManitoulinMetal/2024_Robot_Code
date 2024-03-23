@@ -20,7 +20,7 @@ public class PnuematicsSubsystem extends SubsystemBase
     {
         this.doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
         this.compressor = new Compressor(PneumaticsModuleType.REVPH);
-        this.compressor.enableAnalog(80, 115);
+        this.compressor.enableDigital();
 
 
     }

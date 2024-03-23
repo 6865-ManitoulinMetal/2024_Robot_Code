@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.io.File;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
+
 //import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -64,7 +66,7 @@ public class RobotContainer
     private final Swerve s_Swerve = new Swerve();
     private final LEDSubsystem led = new LEDSubsystem(holster);
 
-    private final SendableChooser<Command> autoChooser;
+   private final SendableChooser<Command> autoChooser;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
@@ -82,24 +84,24 @@ public class RobotContainer
 
          // Put Some buttons on the SmartDashboard
 
-    SmartDashboard.putData("Green LED", new RunCommand(() -> led.green(),led));
-    SmartDashboard.putData("Red LED", new RunCommand(() -> led.red(),led));
-    SmartDashboard.putData("Blue LED", new RunCommand(() -> led.blue(),led));
-    SmartDashboard.putData("Pink LED", new RunCommand(() -> led.pink(),led));
-    SmartDashboard.putData("Turquoise LED", new RunCommand(() -> led.turquoise(),led));
+        SmartDashboard.putData("Green LED", new RunCommand(() -> led.green(),led));
+        SmartDashboard.putData("Red LED", new RunCommand(() -> led.red(),led));
+        SmartDashboard.putData("Blue LED", new RunCommand(() -> led.blue(),led));
+        SmartDashboard.putData("Pink LED", new RunCommand(() -> led.pink(),led));
+        SmartDashboard.putData("Turquoise LED", new RunCommand(() -> led.turquoise(),led));
     
-
-
-    led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
+        // set up Auto Chooser
+        autoChooser = new SendableChooser<>();
+        autoChooser.setDefaultOption("Center 2 Ring Auto", new CenterTwoRingAuto(s_Swerve, holster, intake, shooter));
+        autoChooser.addOption("Left 2 Ring Auto", new LeftTwoRingAuto(s_Swerve, holster, intake, shooter));
+        SmartDashboard.putData(autoChooser);
+        led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
     //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
     
 
 
         // Configure the button bindings
         configureButtonBindings();
-        
-        autoChooser = AutoBuilder.buildAutoChooser();
-
     }
 
     /**
@@ -151,7 +153,7 @@ public class RobotContainer
     public Command getAutonomousCommand() 
     {
        /* An ExampleCommand will run in autonomous */
-        return new LeftTwoRingAuto(s_Swerve, holster, intake, shooter); 
+        return autoChooser.getSelected();
         /* 
         PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
 
