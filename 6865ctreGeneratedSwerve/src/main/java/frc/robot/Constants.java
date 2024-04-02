@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+
 public final class Constants {
     public static final double stickDeadband = 0.1;
 
@@ -29,6 +31,10 @@ public final class Constants {
      // Climber IDs and speeds
      public static final int Climber_Motor_ID = 21;
 
+    /* Climber Current Limits */
+    public TalonFXConfiguration climberFXConfig = new TalonFXConfiguration();
+
+    
   }
     //PWM PORTS
     public static final int LED_PORT = 9;
