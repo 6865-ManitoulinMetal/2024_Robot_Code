@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import frc.robot.Constants.MechanismConstants;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -16,6 +17,7 @@ public class ClimberSubsystem extends SubsystemBase
     {
         // Creates climber
         climberFX = new TalonFX(ID);
+        climberFX.getConfigurator().apply(Robot.ctreConfigs.climberFXConfig);
         climberFX.setNeutralMode(NeutralModeValue.Brake);
     }
    
@@ -23,7 +25,7 @@ public class ClimberSubsystem extends SubsystemBase
     // Method to run climber up
     public void up() 
     {
-        climberFX.set(0.8);
+        climberFX.set(1);
     }
    
    
@@ -32,7 +34,7 @@ public class ClimberSubsystem extends SubsystemBase
     // Method to reverse climber
     public void down()
     {
-        climberFX.set(-0.5);
+        climberFX.set(-1);
     }
 
     // Method to stop intake

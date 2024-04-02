@@ -83,12 +83,16 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+      RobotContainer.s_Swerve.resetModulesToAbsolute();
     }
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() 
+  {
+
+  }
 
   @Override
   public void testInit() {

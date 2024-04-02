@@ -15,6 +15,7 @@ public final class CTREConfigs {
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
     // Inverted CANcoder Config
     public CANcoderConfiguration swerveCANcoderConfigI = new CANcoderConfiguration();
+    public TalonFXConfiguration climberFXConfig = new TalonFXConfiguration();
 
     public CTREConfigs(){
         /** Swerve CANCoder Configuration */
@@ -118,5 +119,11 @@ public final class CTREConfigs {
 
         swerveDriveFXConfigI.ClosedLoopRamps.DutyCycleClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
         swerveDriveFXConfigI.ClosedLoopRamps.VoltageClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
+
+        /* Climber Current Limits */
+        climberFXConfig.CurrentLimits.StatorCurrentLimitEnable = false;
+        climberFXConfig.CurrentLimits.StatorCurrentLimit = 20;
+        climberFXConfig.CurrentLimits.SupplyCurrentLimitEnable = false;
+        climberFXConfig.CurrentLimits.SupplyCurrentLimit = 30;
     }
 }

@@ -4,28 +4,29 @@ package frc.robot.subsystems;
 import frc.robot.Constants.MechanismConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class IntakeSubsystem extends SubsystemBase 
 {
-    public TalonSRX intakeSrx1;
-    public TalonSRX intakeSrx2;
+    public CANSparkMax intakeSM1;
+    public CANSparkMax intakeSM2;
 
     public IntakeSubsystem(int ID1, int ID2) 
     {
         // Creates intake motor
-        intakeSrx1 = new TalonSRX(ID1);
-        intakeSrx2 = new TalonSRX(ID2);
+        intakeSM1 = new CANSparkMax(ID1, MotorType.kBrushless);
+        intakeSM2 = new CANSparkMax(ID2, MotorType.kBrushless);
     }
    
    
     // Method to run intake inwards
     public void intakeIn() 
     {
-        intakeSrx1.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Speed_1);
-        intakeSrx2.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Speed_2);
+        intakeSM1.set(-MechanismConstants.Intake_Speed_1);
+        intakeSM2.set(-MechanismConstants.Intake_Speed_2);
     }
    
    
@@ -34,15 +35,15 @@ public class IntakeSubsystem extends SubsystemBase
     // Method to reverse intake
     public void intakeOut()
     {
-        intakeSrx1.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Reverse_Speed);
-        intakeSrx2.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Intake_Reverse_Speed);
+        intakeSM1.set(-MechanismConstants.Intake_Reverse_Speed);
+        intakeSM2.set(-MechanismConstants.Intake_Reverse_Speed);
     }
 
     // Method to stop intake
     public void Stop()
     {
-        intakeSrx1.set(TalonSRXControlMode.PercentOutput, 0);
-        intakeSrx2.set(TalonSRXControlMode.PercentOutput, 0);
+        intakeSM1.set(0);
+        intakeSM2.set(0);
     }
 
     public Command noteIntake() 

@@ -1,12 +1,5 @@
 package frc.robot;
 
-import java.io.File;
-
-import edu.wpi.first.util.sendable.SendableBuilder;
-
-//import com.pathplanner.lib.auto.AutoBuilder;
-
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -25,11 +18,6 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -63,7 +51,7 @@ public class RobotContainer
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
    
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    public static final Swerve s_Swerve = new Swerve();
     private final LEDSubsystem led = new LEDSubsystem(holster);
 
    private final SendableChooser<Command> autoChooser;
@@ -94,6 +82,8 @@ public class RobotContainer
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("Center 2 Ring Auto", new CenterTwoRingAuto(s_Swerve, holster, intake, shooter));
         autoChooser.addOption("Left 2 Ring Auto", new LeftTwoRingAuto(s_Swerve, holster, intake, shooter));
+        autoChooser.addOption("Right 2 Ring Auto", new RightTwoRingAuto(s_Swerve, holster, intake, shooter));
+        autoChooser.addOption("Leave", new Leave(s_Swerve, shooter, holster));
         SmartDashboard.putData(autoChooser);
         led.gold(); // Turns on Gold LED's even when disabled ---- There may be a better place 
     //for this I think this is a periodic call and this would be best to be a one time call but it seems to work
@@ -121,12 +111,18 @@ public class RobotContainer
     driverXbox.b().onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     // On hold a, intake note into holster - stops when breaks beam
-    mechanismsXbox.leftTrigger().onTrue(new IntakeCommand(intake, holster).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    mechanismsXbox.leftTrigger().onTrue(
+            new IntakeCommand(intake, holster));
+
     // Cancel intake command
     mechanismsXbox.leftTrigger().onFalse(new ParallelCommandGroup(holster.stopHolster(), intake.stopIntake()));
 
     // Shoot command trigger
-    mechanismsXbox.rightTrigger().whileTrue(new ShootCommand(holster, shooter, 45));
+    mechanismsXbox.rightTrigger().whileTrue(
+        new SequentialCommandGroup(
+            new IntakeSensoredReversal(holster, pnuematics),
+            new ShootCommand(holster, shooter, 55))
+            );
     
     // Reverse holster/intake trigger
     mechanismsXbox.a().whileTrue(holster.reverseHolster());
@@ -136,13 +132,33 @@ public class RobotContainer
 
 
     // Toggling holster
-    mechanismsXbox.x().onTrue(pnuematics.flipHolster());
+    mechanismsXbox.x().and(mechanismsXbox.leftTrigger().negate()).onTrue(pnuematics.flipHolster());
 
     driverXbox.rightTrigger().onTrue(climber.raiseClimber());
     driverXbox.rightTrigger().onFalse(climber.stopClimber());
     driverXbox.rightBumper().onTrue(climber.lowerClimber());
     driverXbox.rightBumper().onFalse(climber.stopClimber());
+
+    driverXbox.leftTrigger().onTrue(new InstantCommand( () -> 
+        {
+            Constants.Swerve.maxSpeed = 10;
+        }))
+        .onFalse(new InstantCommand( () -> 
+        {
+            Constants.Swerve.maxSpeed = 3;
+        }));
+
+        driverXbox.a().onTrue(
+        new InstantCommand( () -> 
+        {
+            s_Swerve.resetModulesToAbsolute();
+        }
+        )
+        );
+
+
     }
+
 
     
     /**

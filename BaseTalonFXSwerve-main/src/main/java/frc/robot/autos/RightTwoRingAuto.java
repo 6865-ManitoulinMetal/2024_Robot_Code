@@ -23,9 +23,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.Swerve;
 
-public class LeftTwoRingAuto extends SequentialCommandGroup {
+public class RightTwoRingAuto extends SequentialCommandGroup {
     
-    public LeftTwoRingAuto(Swerve s_Swerve, HolsterSubsystem holster, IntakeSubsystem intake, ShooterSubsystem shooter){
+    public RightTwoRingAuto(Swerve s_Swerve, HolsterSubsystem holster, IntakeSubsystem intake, ShooterSubsystem shooter){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -79,9 +79,9 @@ public class LeftTwoRingAuto extends SequentialCommandGroup {
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these two interior waypoints, making an 's' curve path
-                List.of(new Translation2d(-0.3, -0.5)),
+                List.of(new Translation2d(-0.3, 0.5)),
                 // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(-0.6, -1, new Rotation2d(55)),
+                new Pose2d(-0.6, 1, new Rotation2d(-55)),
                 configR);
             
         SwerveControllerCommand swerveControllerApproachRing2 =
@@ -102,9 +102,9 @@ public class LeftTwoRingAuto extends SequentialCommandGroup {
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these two interior waypoints, making an 's' curve path
-                List.of(new Translation2d(0.1, 0.4)),
+                List.of(new Translation2d(0.1, -0.4)),
                 // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(1, 0.5, new Rotation2d(0)),
+                new Pose2d(1, -0.5, new Rotation2d(0)),
                 configS);
         
         SwerveControllerCommand swerveControllerApproachRing3 =
@@ -126,8 +126,8 @@ public class LeftTwoRingAuto extends SequentialCommandGroup {
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(0, -1.5)),
-                new Pose2d(-1.3, -1.5, new Rotation2d(0)),
+                List.of(new Translation2d(0, 1.5)),
+                new Pose2d(-1.3, 1.5, new Rotation2d(0)),
                 configR);
 
         SwerveControllerCommand swerveControllerApproachSpeaker =
