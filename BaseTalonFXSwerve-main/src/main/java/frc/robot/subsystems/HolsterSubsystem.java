@@ -30,6 +30,11 @@ public class HolsterSubsystem extends SubsystemBase
         holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Backwards_Speed);
     }
 
+    public void slowReverse()
+    {
+        holsterSRX.set(TalonSRXControlMode.PercentOutput, 0.5);
+    }
+
     public void Shoot()
     {
         holsterSRX.set(TalonSRXControlMode.PercentOutput, MechanismConstants.Holster_Forwards_Speed);

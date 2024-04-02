@@ -99,6 +99,6 @@ public class PnuematicsSubsystem extends SubsystemBase
     @Override
     public void periodic()
     { 
-        SmartDashboard.putNumber("PSI: ", this.compressor.getPressure());
+       SmartDashboard.putBoolean("Solinoid state: ", areRaised());
     }    
 }
