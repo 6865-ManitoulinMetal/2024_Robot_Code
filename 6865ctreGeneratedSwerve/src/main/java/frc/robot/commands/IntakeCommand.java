@@ -29,6 +29,7 @@ public class IntakeCommand extends Command {
     {
         return !holsterSubsystem.getHolsterSensor();
         //return holsterSubsystem.getHolsterSensor();
+        //return false;
     }
 
 

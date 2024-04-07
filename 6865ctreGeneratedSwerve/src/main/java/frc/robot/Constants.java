@@ -18,7 +18,7 @@ public final class Constants {
     public static final int Holster_Motor_ID = 10;
     public static final double Holster_Intake_Speed = -0.6;
     public static final double Holster_Forwards_Speed = -1;
-    public static final double Holster_Backwards_Speed = 1;
+    public static final double Holster_Backwards_Speed = 0.5;
     public static final int Holster_Sensor_ID = 0;
 
  
