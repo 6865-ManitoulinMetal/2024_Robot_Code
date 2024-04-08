@@ -9,12 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class IntakeSensoredReversal extends Command {    
     
     private HolsterSubsystem holsterSubsystem;
-    private PnuematicsSubsystem pnuematicsSubsystem;
 
-    public IntakeSensoredReversal(HolsterSubsystem holsterSubsystem, PnuematicsSubsystem pnuematicsSubsystem) 
+    public IntakeSensoredReversal(HolsterSubsystem holsterSubsystem) 
     {
         this.holsterSubsystem = holsterSubsystem;
-        this.pnuematicsSubsystem = pnuematicsSubsystem;
         addRequirements(holsterSubsystem);
     }
 

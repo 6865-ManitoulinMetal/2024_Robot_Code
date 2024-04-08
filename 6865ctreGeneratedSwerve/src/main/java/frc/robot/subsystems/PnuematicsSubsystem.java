@@ -18,7 +18,7 @@ public class PnuematicsSubsystem extends SubsystemBase
 
     public PnuematicsSubsystem(int pcmId, int solenoidChannel0, int solenoidChannel1) 
     {
-        this.doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+        this.doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 7, 4);
         this.compressor = new Compressor(PneumaticsModuleType.REVPH);
         this.compressor.enableDigital();
 

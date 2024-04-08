@@ -7,11 +7,15 @@ package frc.robot;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -37,7 +41,7 @@ public class RobotContainer {
   private final CommandXboxController mechanismsXbox = new CommandXboxController(1); // My joystick
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
-      private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
+    private final IntakeSubsystem intake = new IntakeSubsystem(MechanismConstants.Intake_ID_1, MechanismConstants.Intake_ID_2);
     private final HolsterSubsystem holster = new HolsterSubsystem(10);
     private final ShooterSubsystem shooter = new ShooterSubsystem(11);
     private final ClimberSubsystem climber = new ClimberSubsystem(21);    
@@ -50,6 +54,8 @@ public class RobotContainer {
   private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   private final Telemetry logger = new Telemetry(MaxSpeed);
+
+  private final SendableChooser<Command> autoChooser;
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
@@ -83,7 +89,7 @@ public class RobotContainer {
     // Shoot command trigger
     mechanismsXbox.rightTrigger().whileTrue(
         new SequentialCommandGroup(
-            new IntakeSensoredReversal(holster, pnuematics),
+            new IntakeSensoredReversal(holster),
             new ShootCommand(holster, shooter, 55))
             );
     
@@ -107,9 +113,19 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+
+    NamedCommands.registerCommand("SensoredIntake", new IntakeCommand(intake, holster));
+    NamedCommands.registerCommand("SensoredReversal", new IntakeSensoredReversal(holster));
+    NamedCommands.registerCommand("Shoot", new SequentialCommandGroup(
+      new IntakeSensoredReversal(holster),
+      new ShootCommand(holster, shooter, 55)
+      ).withTimeout(1.5));
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("Test Auto");
+    return new PathPlannerAuto("C-Inside");
   }
 }
