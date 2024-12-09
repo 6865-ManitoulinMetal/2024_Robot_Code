@@ -25,7 +25,7 @@ public class IntakeSensoredReversal extends Command {
 
     public boolean isFinished()
     {
-        return holsterSubsystem.getHolsterSensor();
+        return holsterSubsystem.getHolsterSensor() || pnuematicsSubsystem.areRaised();
         //return holsterSubsystem.getHolsterSensor();
     }
 
