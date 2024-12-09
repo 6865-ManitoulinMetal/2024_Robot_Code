@@ -2,7 +2,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
-public final class Constants {
+public final class Constants 
+{
     public static final double stickDeadband = 0.1;
 
     public static final class MechanismConstants
@@ -11,7 +12,7 @@ public final class Constants {
     public static final int Intake_ID_1 = 25;
     public static final int Intake_ID_2 = 26;
     public static final double Intake_Speed_1 = 1;
-    public static final double Intake_Speed_2 = 1;
+    public static final double Intake_Speed_2 = 0.5;
     public static final double Intake_Reverse_Speed = -1;
 
     // Holster IDs and speeds
@@ -34,7 +35,9 @@ public final class Constants {
     /* Climber Current Limits */
     public TalonFXConfiguration climberFXConfig = new TalonFXConfiguration();
 
-    
+    // LED DIO array
+    public static int toggleLED = 12;
+    public static int[] LEDThroughArduinoPorts = {9,10,11};
   }
     //PWM PORTS
     public static final int LED_PORT = 9;
